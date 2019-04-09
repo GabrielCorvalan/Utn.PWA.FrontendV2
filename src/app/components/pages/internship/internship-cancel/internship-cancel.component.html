@@ -1,0 +1,17 @@
+<div>
+  <mat-form-field class="col-12">
+    <textarea matInput [formControl]="cancelationDescription" placeholder="Motivos de cancelacion">
+    </textarea>
+  </mat-form-field>
+
+  <div class="mt-2">
+    <button mat-flat-button color="accent" (click)="closeModal()" class="col-5">
+      <mat-icon> add_circle </mat-icon> Cancelar
+    </button>
+
+    <button mat-flat-button color="accent" [disabled]="cancelationDescription.invalid"
+            (click)="cancelInternship()" class="col-5 offset-2">
+      <mat-icon> add_circle </mat-icon> Aceptar
+    </button>
+  </div>
+</div>

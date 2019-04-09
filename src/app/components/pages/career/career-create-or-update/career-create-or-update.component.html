@@ -1,0 +1,22 @@
+<h2 class="text-center text-themecolor"> Nueva Carrera </h2> <br>
+
+<form [formGroup]="careerForm" (submit)="onSubmit()">
+  <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
+
+    <mat-form-field class="col-12">
+      <input matInput placeholder="Name"
+             formControlName="name"
+             autocomplete="off">
+      <mat-error *ngIf="careerForm.get('name').hasError('required')">
+        El nombre es <strong>requerido</strong>
+      </mat-error>
+      <mat-error *ngIf="careerForm.get('name').hasError('pattern')">
+        Ingrese un nombre valido
+      </mat-error>
+    </mat-form-field>
+    
+    <div class="mt-2">
+      <button mat-flat-button color="accent" type="submit" [disabled]="careerForm.invalid" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Crear  </button>
+    </div>
+
+</form>

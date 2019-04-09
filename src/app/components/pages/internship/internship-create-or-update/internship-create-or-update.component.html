@@ -1,0 +1,85 @@
+<h2 class="text-center text-themecolor"> Nueva Pasantia </h2> <br>
+
+<form [formGroup]="fGroup" (ngSubmit)="onSubmit()">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
+
+    <mat-form-field class="col-12 col-sm-6">
+      <input matInput placeholder="Estudiante" aria-label="State"
+             [matAutocomplete]="studentAuto" formControlName="studentId">
+      <mat-autocomplete #studentAuto="matAutocomplete" [displayWith]="displayStudentFn.bind(this)">
+        <mat-option *ngFor="let student of filteredStudents | async" [value]="student.id">
+          <!-- <img class="example-option-img" aria-hidden [src]="student.flag" height="25"> -->
+          <span>     {{student.names}} {{student.surnames}} - {{student.dni}} </span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-sm-6">
+      <input matInput placeholder="Empresa" aria-label="State" [matAutocomplete]="auto"
+             formControlName="companyId">
+      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCompanyFn.bind(this)">
+        <mat-option *ngFor="let company of filteredCompanies | async" [value]="company.id">
+          <!-- <img class="example-option-img" aria-hidden [src]="company.flag" height="25"> -->
+          <span>     {{company.name}} - {{company.cuit}}</span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-sm-6">
+      <input matInput [matDatepicker]="startPicker" readonly formControlName="startDate"
+             autocomplete="off" placeholder="Fecha de inicio">
+      <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
+      <mat-datepicker #startPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="col-12 col-sm-6">
+      <input matInput [matDatepicker]="endPicker" readonly formControlName="endDate"
+             autocomplete="off" placeholder="Fecha de fin">
+      <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
+      <mat-datepicker #endPicker></mat-datepicker>
+    </mat-form-field>
+
+    <mat-form-field class="col-12">
+      <input matInput placeholder="Firmante de la Compania" formControlName="companySignatory"
+             autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field class="col-12">
+      <textarea matInput formControlName="taskDescription" placeholder="Descripcion de las tareas">
+      </textarea>
+    </mat-form-field>
+
+    <mat-form-field class="col-12">
+      <input matInput placeholder="Tutor (De la Empresa)" aria-label="Tutor"
+             [matAutocomplete]="CtutorAuto" formControlName="companyTutorId">
+      <mat-autocomplete #CtutorAuto="matAutocomplete" [displayWith]="displayCompanyTutorFn.bind(this)">
+        <mat-option *ngFor="let companyTutor of filteredCompanyTutors | async" [value]="companyTutor.id">
+          <!-- <img class="example-option-img" aria-hidden [src]="company.flag" height="25"> -->
+          <span>     {{companyTutor.names}} {{companyTutor.surnames}} - {{companyTutor.dni}} </span>
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+
+    <mat-form-field class="col-12">
+      <input matInput placeholder="Convenio Colectivo de Trabajo" formControlName="workAgreement"
+             autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field class="col-5">
+      <input matInput placeholder="Horas diarias" type="number" formControlName="dailyHours"
+             autocomplete="off">
+    </mat-form-field>
+
+    <mat-form-field class="col-7">
+      <input matInput placeholder="Asignacion Estimulo" type="number"
+             formControlName="salaryWorkAssignment" autocomplete="off">
+    </mat-form-field>
+
+    <div class="mt-2">
+      <button mat-flat-button color="accent" type="submit" class="btn btn-block">
+        <mat-icon> add_circle </mat-icon> Añadir
+      </button>
+    </div>
+
+  </div>
+</form>

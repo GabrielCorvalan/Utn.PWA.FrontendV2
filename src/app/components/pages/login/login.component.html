@@ -1,0 +1,43 @@
+<div class="conenedor">
+  <div class="contenido">
+    <div class="center-div col-12 col-sm-6 col-md-5">
+      <div class="card border" >
+        <div class="card-header">
+          <h3 class="text-themecolor">Login</h3>
+        </div>
+        <div class="card-body">
+          <div class="center-div form-login">
+            <form [formGroup]="formGroup" (ngSubmit)="postLogin()">
+              <mat-form-field class="col-12">
+                  <input matInput placeholder="Dni" 
+                         formControlName="dni" 
+                         autocomplete="off"
+                         type="number" >
+              </mat-form-field>
+              <mat-form-field class="col-12">
+                <input type="password" matInput 
+                        placeholder="Password"
+                        formControlName="password"
+                        autocomplete="off">
+              </mat-form-field>
+              <div class="button-row col-12">
+                  <button mat-flat-button color="primary" [disabled]="formGroup.invalid" class="btn btn-block">Login</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+                    <!-- <div class="mt-4">
+                        <div>
+                          <p>
+                            Si no recuerda su username puede buscarlo ingresando su DNI.
+                          </p>
+                          <mat-form-field class="col-sm-8">
+                          <input type="text" matInput placeholder="DNI">
+                          </mat-form-field>
+                          <button mat-flat-button color="accent" class="col-sm-4">Buscar</button>
+                        </div>
+                    </div> -->

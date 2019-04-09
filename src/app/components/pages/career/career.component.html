@@ -1,0 +1,27 @@
+<mat-form-field class="col-12 col-sm-8">
+  <input matInput placeholder="Buscar">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<div>
+  <a href="javascript:void(0)" routerLink="/careers/create-or-update" tittle="agregar" class="ml-2 d-inline" style="float: right"><mat-icon>add_circle</mat-icon></a>
+</div>
+<div class="responsive">
+  <table>
+    <thead>
+      <tr>
+        <th scope="name"> Nombre </th>
+        <th scope="actions"> Actions </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let career of careers">
+        <td data-label="name"> {{career.name}} </td>
+        <td  data-label="actions">
+          <!-- <a href=""><mat-icon>details</mat-icon></a> -->
+          <a class="ml-2" ><mat-icon>edit</mat-icon></a>
+          <a href="javascript:void(0)" tittle="delete" class="ml-2"><mat-icon>delete</mat-icon></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,39 @@
+<mat-form-field class="col-12 col-sm-8">
+  <input matInput placeholder="Buscar">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<div>
+  <a href="javascript:void(0)" routerLink="/internships/create-or-update" tittle="agregar" class="ml-2 d-inline" style="float: right"><mat-icon>add_circle</mat-icon></a>
+</div>
+<div class="responsive">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col"> Estudiante </th>
+        <th scope="col"> Dni del Estudiante </th>
+        <th scope="col"> Empresa </th>
+        <th scope="col"> Cuit de la Empresa </th>
+        <th scope="col"> Dia de inicio </th>
+        <th scope="col"> Dia de fin </th>
+        <th scope="col"> Asignacion Estimulo </th>
+        <th scope="col"> Acciones </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let internship of internships">
+        <td data-label="Estudiante">  <span class="badge badge-danger"> {{internship.student.names}} {{internship.student.surnames}} </span> </td>
+        <td data-label="Dni de Estudiante"> {{internship.student.dni}} </td>
+        <td data-label="Empresa"> {{internship.company.name}} </td>
+        <td data-label="Cuit de la Empresa"> {{internship.company.cuit}} </td>
+        <td data-label="Dia de inicio"> {{internship.startDate | date: 'dd/MM/yyyy'}} </td>
+        <td data-label="Dia de fin"> {{internship.endDate | date: 'dd/MM/yyyy'}} </td>
+        <td data-label="Asignacion Estimulo"> ${{internship.salaryWorkAssignment}} </td>
+        <td  data-label="Acciones">
+          <a href="javascript:void(0)" (click)="openDialog(internship)" tittle="detalle" class="ml-2"><mat-icon>details</mat-icon></a>
+          <a class="ml-2" ><mat-icon>edit</mat-icon></a>
+          <a href="javascript:void(0)" tittle="delete" class="ml-2"><mat-icon>delete</mat-icon></a>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

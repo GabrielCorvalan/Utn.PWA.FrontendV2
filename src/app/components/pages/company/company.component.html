@@ -1,0 +1,31 @@
+<mat-form-field class="col-12 col-sm-8">
+  <input matInput placeholder="Buscar">
+  <mat-icon matSuffix>search</mat-icon>
+</mat-form-field>
+<div>
+  <a href="javascript:void(0)" routerLink="/companies/create-or-update" tittle="agregar" class="ml-2 d-inline" style="float: right"><mat-icon>add_circle</mat-icon></a>
+</div>
+<div class="responsive">
+  <table>
+      <thead>
+        <tr>
+          <th scope="col"> Nombre de la Empresa </th>
+          <th scope="col"> Cuit </th>
+          <th scope="col"> Email </th>
+          <th scope="col"> Acciones </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companies">
+          <td data-label="Nombre de la Empresa"> {{company.name}} </td>
+          <td data-label="Cuit"> {{company.cuit}} </td>
+          <td data-label="Email"> {{company.email}} </td>
+          <td  data-label="Acciones">
+            <!-- <a href=""><mat-icon>details</mat-icon></a> -->
+            <a class="ml-2" ><mat-icon>edit</mat-icon></a>
+            <a href="javascript:void(0)" tittle="delete" class="ml-2"><mat-icon>delete</mat-icon></a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+</div>

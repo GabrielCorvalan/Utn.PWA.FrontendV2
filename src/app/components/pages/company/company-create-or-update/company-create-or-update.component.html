@@ -1,0 +1,89 @@
+<h2 class="text-center text-themecolor"> Nueva Empresa </h2> <br>
+
+<form [formGroup]="companyForm" (submit)="onSubmit()">
+  <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
+
+    <mat-form-field class="col-6">
+      <input matInput placeholder="Name"
+             formControlName="name"
+             autocomplete="off">
+      <mat-error *ngIf="companyForm.get('name').hasError('required')">
+        El nombre es <strong>requerido</strong>
+      </mat-error>
+      <mat-error *ngIf="companyForm.get('name').hasError('pattern')">
+        Ingrese un nombre valido
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="col-6">
+      <input matInput placeholder="Cuil" formControlName="cuit" autocomplete="off">
+      <mat-error *ngIf="companyForm.get('cuit').hasError('pattern')">
+        Ingrese un cuit valido
+      </mat-error>
+      <mat-error *ngIf="companyForm.get('cuit').hasError('required')">
+        el cuit es <strong>requerido</strong>
+      </mat-error>
+    </mat-form-field>      
+    
+    <mat-form-field class="col-12">
+      <input matInput placeholder="Email"
+             formControlName="email"
+             autocomplete="off">
+      <mat-error *ngIf="companyForm.get('email').hasError('required')">
+        El Email es <strong>requerido</strong>
+      </mat-error>
+      <mat-error *ngIf="companyForm.get('email').hasError('email')">
+        Ingrese un mail valido
+      </mat-error>
+    </mat-form-field>
+    
+    
+    <div formGroupName="address">          
+      <!-- <h2 class="text-themecolor"> Direccion </h2>    -->
+  
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Calles"
+                  formControlName="streetAddress"
+                  autocomplete="off">
+        </mat-form-field>
+          
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Ciudad"
+                  formControlName="city"
+                  autocomplete="off">
+        </mat-form-field>
+        
+        <mat-form-field class="col-12">
+          <input matInput placeholder="Provincia"
+                  formControlName="state"
+                  autocomplete="off">
+        </mat-form-field>
+        
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Codigo Postal"
+                  formControlName="zipCode"
+                  autocomplete="off">
+        </mat-form-field>
+          
+        <mat-form-field class="col-6">
+          <input matInput placeholder="País"
+                  formControlName="country"
+                  autocomplete="off">
+        </mat-form-field>
+    
+        <!-- <div class="row col-12 m-0">
+          <div class="mt-2 col-6">
+            <button mat-flat-button color="warn" type="text" (click)="backStep()"  class="btn btn-block"> <mat-icon> keyboard_backspace </mat-icon> Volver  </button>
+          </div>
+  
+          <div class="mt-2 col-6">
+            <button mat-flat-button color="accent" type="submit"  class="btn btn-block"> <mat-icon> add_circle </mat-icon> Crear  </button>
+          </div>
+        </div> -->
+    </div>
+    
+    <div class="mt-2">
+      <button mat-flat-button color="accent" type="submit" [disabled]="companyForm.invalid" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Crear  </button>
+    </div>
+
+</form>

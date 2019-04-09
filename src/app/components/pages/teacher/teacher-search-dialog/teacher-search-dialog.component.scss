@@ -1,0 +1,11 @@
+@import "../../../../../styles.scss";
+.grid-container{
+    position: relative;
+    float: left;
+    width: 100%;
+    height: calc(60vh - 4rem);
+    .grid-content{
+        width: 100%;
+        max-height: calc(100% - 8rem);
+    }
+}

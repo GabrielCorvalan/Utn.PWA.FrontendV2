@@ -1,0 +1,78 @@
+//GENERAL
+$primary: #009688;
+$accent: #3f51b5;
+$secondary: #F7A021;
+$accent-transparency: rgba(217, 197, 224, 0.1);
+
+$white: white;
+$red: rgb(220, 20, 20);
+$green: #98d436;
+$orange: #F7A021;
+
+
+$light-grey: #ccc;
+$dark-grey: #4d4d4d;
+$bg-grey: #f4f4f4;
+
+$border-thin: 0.05rem solid $light-grey;
+$border-thick: 0.1rem solid $dark-grey;
+
+$search-box-small: 7rem;
+$search-box-big: 12rem;
+
+// Sidenav
+$darker-blue: #272B35;
+
+$dark-blue: #2B303B;
+$dark-blue__hover: darken($dark-blue, 2);
+$dark-blue__active: $dark-blue__hover;
+
+$dark-blue__level1: darken($dark-blue, 2.5);
+$dark-blue__level1__hover: darken($dark-blue__level1, 1.5);
+$dark-blue__level1__active: $dark-blue__level1__hover;
+
+$dark-blue__level2: darken($dark-blue__level1, 2.5);
+$dark-blue__level2__hover: darken($dark-blue__level2, 1.5);
+$dark-blue__level2__active: $dark-blue__level2__hover;
+
+$dark-blue__level3: darken($dark-blue__level2, 2.5);
+$dark-blue__level3__hover: darken($dark-blue__level3, 1.5);
+$dark-blue__level3__active: $dark-blue__level3__hover;
+
+$dark-blue__level4: darken($dark-blue__level3, 2.5);
+$dark-blue__level4__hover: darken($dark-blue__level4, 1.5);
+$dark-blue__level4__active: $dark-blue__level4__hover;
+
+$dark-blue__level5: darken($dark-blue__level4, 2.5);
+$dark-blue__level5__hover: darken($dark-blue__level5, 1.5);
+$dark-blue__level5__active: $dark-blue__level5__hover;
+
+$dark-blue__level6: darken($dark-blue__level5, 2.5);
+$dark-blue__level6__hover: darken($dark-blue__level6, 1.5);
+$dark-blue__level6__active: $dark-blue__level6__hover;
+
+$padding__sidenav-item__level2: 10px;
+$padding__sidenav-item__level3: 20px;
+$padding__sidenav-item__level4: 30px;
+$padding__sidenav-item__level5: 40px;
+$padding__sidenav-item__level6: 40px;
+
+$width__sidenav: 196px;
+
+$padding-left-right__sidenav-list__md-list-item: 24px;
+$margin-left__sidenav-list__item-name: $padding-left-right__sidenav-list__md-list-item;
+$width-height__sidenav-list__icon: 18px;
+
+$max-width__icon-sidenav: ($padding-left-right__sidenav-list__md-list-item * 2) + $width-height__sidenav-list__icon + 2;
+
+$z-index__md-sidenav: 4;
+$z-index__md-sidenav-content: 5;
+$z-index__main-toolbar: 4;
+
+$height__main-toolbar: 64px;
+
+// Mixins
+
+@mixin mdShadow-z3 () {
+  box-shadow: 0 3px 3px -2px rgba(0,0,0,.2), 0 3px 4px 0 rgba(0,0,0,.14), 0 1px 8px 0 rgba(0,0,0,.12);
+}
