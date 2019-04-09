@@ -26,7 +26,7 @@ export class InternshipComponent implements OnInit {
       }, (error: any): void => console.log(error));
   }
 
-  openDialog(intership: IInternship): void {
+  cancelInternship(intership: IInternship): void {
     const dialogRef = this.dialog.open(InternshipCancelComponent, {
       width: '350px',
       data: intership

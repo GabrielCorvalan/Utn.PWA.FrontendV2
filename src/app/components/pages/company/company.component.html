@@ -1,31 +1,36 @@
-<mat-form-field class="col-12 col-sm-8">
-  <input matInput placeholder="Buscar">
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
-<div>
-  <a href="javascript:void(0)" routerLink="/companies/create-or-update" tittle="agregar" class="ml-2 d-inline" style="float: right"><mat-icon>add_circle</mat-icon></a>
-</div>
-<div class="responsive">
-  <table>
-      <thead>
-        <tr>
-          <th scope="col"> Nombre de la Empresa </th>
-          <th scope="col"> Cuit </th>
-          <th scope="col"> Email </th>
-          <th scope="col"> Acciones </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let company of companies">
-          <td data-label="Nombre de la Empresa"> {{company.name}} </td>
-          <td data-label="Cuit"> {{company.cuit}} </td>
-          <td data-label="Email"> {{company.email}} </td>
-          <td  data-label="Acciones">
-            <!-- <a href=""><mat-icon>details</mat-icon></a> -->
-            <a class="ml-2" ><mat-icon>edit</mat-icon></a>
-            <a href="javascript:void(0)" tittle="delete" class="ml-2"><mat-icon>delete</mat-icon></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+<div class="page-container">
+  <a href="javascript:void(0)" routerLink="/companies/create-or-update" tittle="agregar"><mat-icon>add_circle</mat-icon></a>
+  <div class="content-container">
+    <mat-card class="card-item" *ngFor="let company of companies">
+      <div class="card-header" fxLayout="row" fxLayoutAlign="space-betwen center">
+        <h3 class="card-title" fxFlex>{{company.name}} [{{company.id}}]</h3>
+        <div class="card-actions" fxFlex="2rem">
+          <button mat-mini-fab color="primary" mat-tooltip="Editar">
+            <mat-icon>edit</mat-icon>
+          </button>
+          <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu"><mat-icon>expand_more</mat-icon></button>
+        </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon> library_books </mat-icon>
+            <span> Comprobantes </span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="flex-container" fxLayout="row" fxLayout.xs="column">
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Cuit</p>
+          <p class="card-info-text">{{company.cuit}}</p>
+        </div>
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Email</p>
+          <p class="card-info-text">{{company.email}}</p>
+        </div>
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Cantidad de pasantes</p>
+          <p class="card-info-text">18</p>
+        </div>
+      </div>
+    </mat-card>
+  </div>
 </div>

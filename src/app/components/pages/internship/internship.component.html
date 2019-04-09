@@ -1,39 +1,85 @@
-<mat-form-field class="col-12 col-sm-8">
-  <input matInput placeholder="Buscar">
-  <mat-icon matSuffix>search</mat-icon>
-</mat-form-field>
-<div>
-  <a href="javascript:void(0)" routerLink="/internships/create-or-update" tittle="agregar" class="ml-2 d-inline" style="float: right"><mat-icon>add_circle</mat-icon></a>
-</div>
-<div class="responsive">
-  <table>
-    <thead>
-      <tr>
-        <th scope="col"> Estudiante </th>
-        <th scope="col"> Dni del Estudiante </th>
-        <th scope="col"> Empresa </th>
-        <th scope="col"> Cuit de la Empresa </th>
-        <th scope="col"> Dia de inicio </th>
-        <th scope="col"> Dia de fin </th>
-        <th scope="col"> Asignacion Estimulo </th>
-        <th scope="col"> Acciones </th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let internship of internships">
-        <td data-label="Estudiante">  <span class="badge badge-danger"> {{internship.student.names}} {{internship.student.surnames}} </span> </td>
-        <td data-label="Dni de Estudiante"> {{internship.student.dni}} </td>
-        <td data-label="Empresa"> {{internship.company.name}} </td>
-        <td data-label="Cuit de la Empresa"> {{internship.company.cuit}} </td>
-        <td data-label="Dia de inicio"> {{internship.startDate | date: 'dd/MM/yyyy'}} </td>
-        <td data-label="Dia de fin"> {{internship.endDate | date: 'dd/MM/yyyy'}} </td>
-        <td data-label="Asignacion Estimulo"> ${{internship.salaryWorkAssignment}} </td>
-        <td  data-label="Acciones">
-          <a href="javascript:void(0)" (click)="openDialog(internship)" tittle="detalle" class="ml-2"><mat-icon>details</mat-icon></a>
-          <a class="ml-2" ><mat-icon>edit</mat-icon></a>
-          <a href="javascript:void(0)" tittle="delete" class="ml-2"><mat-icon>delete</mat-icon></a>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
+<div class="page-container">
+    <a href="javascript:void(0)" routerLink="/students/create-or-update" tittle="agregar"><mat-icon>add_circle</mat-icon></a>
+    <div class="content-container">
+      <mat-card class="card-item" *ngFor="let internship of internships">
+        <div class="card-header" fxLayout="row" fxLayoutAlign="space-betwen center">
+          <h3 class="card-title" fxFlex>{{internship.student.names}} {{internship.student.surnames}} [{{internship.student.file}}]</h3>
+          <div class="card-actions" fxFlex="2rem">
+            <button mat-mini-fab color="primary" mat-tooltip="Editar">
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu"><mat-icon>expand_more</mat-icon></button>
+          </div>
+          <mat-menu #menu="matMenu">
+            <button (click)="cancelInternship()" mat-menu-item>
+              <mat-icon> library_books </mat-icon>
+              <span> Cancelar </span>
+            </button>
+          </mat-menu>
+        </div>
+        <div class="flex-container" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Nombre del estudiante</p>
+            <p class="card-info-text">{{internship.student.names}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Dni del estudiante</p>
+            <p class="card-info-text">{{internship.student.dni}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Nombre de la compania</p>
+            <p class="card-info-text">{{internship.company.name}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Cuit de la empresa</p>
+            <p class="card-info-text">{{internship.company.cuit}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Cuit de la empresa</p>
+            <p class="card-info-text">{{internship.observations}}</p>
+          </div>
+        </div>
+        <div class="flex-container" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Dia de inicio</p>
+            <p class="card-info-text">{{internship.startDate}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Dia de fin</p>
+            <p class="card-info-text">{{internship.endDate}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Salario</p>
+            <p class="card-info-text">{{internship.salaryWorkAssignment}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Gremio</p>
+            <p class="card-info-text">{{internship.workAgreement}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Horas diarias</p>
+            <p class="card-info-text">{{internship.dailyHours}}</p>
+          </div>
+        </div>
+        <div class="flex-container" fxLayout="row" fxLayout.xs="column">
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Dia de creacion</p>
+            <p class="card-info-text">{{internship.createdDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Ultima modificacion</p>
+            <p class="card-info-text">{{internship.lastModified | date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Dia de cancelacion</p>
+            <p class="card-info-text">{{internship.cancellationDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+          <div fxFlex="20" class="card-item-info">
+            <p class="card-info-title">Dia de renovacion</p>
+            <p class="card-info-text">{{internship.renovationDate | date: 'dd/MM/yyyy'}}</p>
+          </div>
+        </div>
+      </mat-card>
+    </div>
+  </div>
+

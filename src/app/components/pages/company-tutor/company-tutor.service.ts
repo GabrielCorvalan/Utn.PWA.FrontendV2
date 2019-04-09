@@ -31,10 +31,10 @@ export class CompanyTutorService extends DataService {
   }
 
   createCompanyTutor(companyTutor: ICompanyTutor): Observable<boolean> {
-    this._headers.set('Content-Type', 'application/json');    
+    this._headers.set('Content-Type', 'application/json');
     const result = JSON.stringify(companyTutor);
     console.log(result);
-    
+
     return this.http.post(this._baseUrl + '/companyTutor', result, { headers: this._headers }).pipe(
       map(res => {
         return res;
@@ -56,5 +56,5 @@ export class CompanyTutorService extends DataService {
       }),
       catchError(this.handleError), );
   }
-  
+
 }

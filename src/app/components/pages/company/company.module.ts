@@ -6,6 +6,7 @@ import { MaterialModule } from 'src/app/app-material.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CompanyRoutingModule } from './company-routing.module';
+import { CompanyService } from './company.service';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { CompanyRoutingModule } from './company-routing.module';
     ReactiveFormsModule,
     CompanyRoutingModule,
     RouterModule
-  ]
+  ],
+  providers: [ CompanyService ]
 })
 export class CompanyModule { }
