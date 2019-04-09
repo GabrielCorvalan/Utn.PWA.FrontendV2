@@ -11,9 +11,13 @@
             <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu"><mat-icon>expand_more</mat-icon></button>
           </div>
           <mat-menu #menu="matMenu">
-            <button (click)="cancelInternship()" mat-menu-item>
+            <button (click)="cancelInternship(internship)" mat-menu-item>
               <mat-icon> library_books </mat-icon>
               <span> Cancelar </span>
+            </button>
+            <button (click)="cancelInternship(internship)" mat-menu-item>
+              <mat-icon> library_books </mat-icon>
+              <span> Renovar </span>
             </button>
           </mat-menu>
         </div>

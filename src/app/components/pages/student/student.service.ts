@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { DataService } from 'src/app/DataService';
 import { IStudent } from 'src/app/intefaces/IStudent';
@@ -31,10 +31,10 @@ export class StudentService extends DataService {
   }
 
   createStudent(student: IStudent): Observable<boolean> {
-    this._headers.set('Content-Type', 'application/json');    
+    this._headers.set('Content-Type', 'application/json');
     const result = JSON.stringify(student);
     console.log(result);
-    
+
     return this.http.post(this._baseUrl + '/student', result, { headers: this._headers }).pipe(
       map(res => {
         return res;
@@ -56,5 +56,15 @@ export class StudentService extends DataService {
       }),
       catchError(this.handleError), );
   }
-  
+
+  getStudentsByFilter(filter: string) {
+    const parameters = new HttpParams().set('filter', filter);
+    this._headers.set('Content-Type', 'application/json');
+    return this.http.get(this._baseUrl + '/student/ByFilter', {params: parameters, headers: this._headers}).pipe(
+      map((res: IStudent[]) => {
+        return res;
+      }),
+      catchError(this.handleError), );
+  }
+
 }

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
 import { DataService } from 'src/app/DataService';
 import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
@@ -57,4 +57,13 @@ export class CompanyTutorService extends DataService {
       catchError(this.handleError), );
   }
 
+  getTutorsByFilter(filter: string) {
+    const parameters = new HttpParams().set('filter', filter);
+    this._headers.set('Content-Type', 'application/json');
+    return this.http.get(this._baseUrl + '/companyTutor/ByFilter', {params: parameters, headers: this._headers}).pipe(
+      map((res: ICompanyTutor[]) => {
+        return res;
+      }),
+      catchError(this.handleError), );
+  }
 }

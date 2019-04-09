@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { CompanyRoutingModule } from './company-routing.module';
 import { CompanyService } from './company.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { CompanyService } from './company.service';
     MaterialModule,
     ReactiveFormsModule,
     CompanyRoutingModule,
-    RouterModule
+    RouterModule,
+    FlexLayoutModule
   ],
   providers: [ CompanyService ]
 })

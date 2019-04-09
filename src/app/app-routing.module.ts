@@ -15,6 +15,7 @@ const routes: Routes = [
     { path: 'internships', loadChildren: './components/pages/internship/internship.module#InternshipModule' },
     { path: 'students', loadChildren: './components/pages/student/student.module#StudentModule' },
     { path: 'users', loadChildren: './components/pages/user/user.module#UserModule' },
+    { path: 'company-tutors', loadChildren: './components/pages/company-tutor/company-tutor.module#CompanyTutorModule' },
   ]}
 ];
 

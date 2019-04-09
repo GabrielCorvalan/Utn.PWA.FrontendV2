@@ -1,3 +1,5 @@
+import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
+import { CompanyTutorService } from './company-tutor.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +8,20 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class CompanyTutorComponent implements OnInit {
-
-  constructor() { }
+  companyTutors: ICompanyTutor[];
+  constructor(private companyTutorService: CompanyTutorService) { }
 
   ngOnInit() {
+    this.getCompanyTutors();
+  }
+
+  getCompanyTutors() {
+    this.companyTutorService.getAllCompanyTutors()
+    .subscribe((res: ICompanyTutor[]) => {
+      this.companyTutors = res;
+      console.log('company tutors', this.companyTutors);
+
+  }, (error: any): void => console.log(error));
   }
 
 }

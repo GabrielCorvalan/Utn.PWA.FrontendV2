@@ -5,6 +5,7 @@ import { UserCreateOrUpdateComponent } from './user-create-or-update/user-create
 import { MaterialModule } from 'src/app/app-material.module';
 import { UserRoutingModule } from './user-routing.module';
 import { UserService } from './user.service';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import { UserService } from './user.service';
   imports: [
     CommonModule,
     MaterialModule,
-    UserRoutingModule
+    UserRoutingModule,
+    FlexLayoutModule
   ],
   providers: [UserService]
 })

@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 import { InternshipDetailComponent } from './internship-detail/internship-detail.component';
 import { InternshipRoutingModule } from './internships-routing.module';
 import { InternshipCancelComponent } from './internship-cancel/internship-cancel.component';
+import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({
   entryComponents: [ InternshipDetailComponent, InternshipCancelComponent ],
@@ -23,6 +24,7 @@ import { InternshipCancelComponent } from './internship-cancel/internship-cancel
     InternshipRoutingModule,
     ReactiveFormsModule,
     MaterialModule,
+    FlexLayoutModule
   ]
 })
 export class InternshipModule { }
