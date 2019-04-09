@@ -1,3 +1,144 @@
-<p>
-  company-tutor-create-or-udate works!
-</p>
+<h2 class="text-center text-themecolor"> Nuevo Estudiante </h2> <br>
+
+<form [formGroup]="companyTutorForm" (submit)="onSubmit()">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
+
+    <ng-container *ngIf="step; else stepTwo">
+
+    <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
+
+      <mat-form-field class="col-6">
+        <input matInput placeholder="Name"
+              formControlName="names"
+              autocomplete="off">
+        <mat-error *ngIf="companyTutorForm.get('names').hasError('required')">
+          El nombre es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="companyTutorForm.get('names').hasError('pattern')">
+          Ingrese un nombre valido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <input matInput placeholder="Surname"
+              formControlName="surnames"
+              autocomplete="off">
+        <mat-error *ngIf="companyTutorForm.get('surnames').hasError('required')">
+          El nombre es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="companyTutorForm.get('surnames').hasError('pattern')">
+          Ingrese un nombre valido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-12">
+        <input matInput placeholder="Email"
+              formControlName="email"
+              autocomplete="off">
+        <mat-error *ngIf="companyTutorForm.get('email').hasError('required')">
+          El Email es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="companyTutorForm.get('email').hasError('email')">
+          Ingrese un mail valido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <input matInput placeholder="Dni"
+              formControlName="dni"
+              autocomplete="off"
+              type="number">
+        <mat-error *ngIf="companyTutorForm.get('dni').hasError('required')">
+          El dni es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="companyTutorForm.get('dni').hasError('pattern')">
+          Ingrese un dni valido
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-6">
+        <input matInput placeholder="Cuil" formControlName="cuil" autocomplete="off" type="number">
+        <mat-error *ngIf="companyTutorForm.get('cuil').hasError('pattern')">
+          Ingrese un cuil valido
+        </mat-error>
+        <mat-error *ngIf="companyTutorForm.get('cuil').hasError('required')">
+          el cuil es <strong>requerido</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="col-8">
+        <mat-select placeholder="Empresa" formControlName="company" autocomplete="off">
+          <mat-option *ngFor="let company of companies" [value]="company">
+            {{company.name}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <!-- Prueba -->
+      <mat-form-field class="col-12">
+        <input matInput placeholder="Tutor" aria-label="State">
+        <button matSuffix (click)="searchTeacherDialog()"><mat-icon>search</mat-icon> </button>
+      </mat-form-field>
+      <!-- Prueba -->
+
+      <!-- <mat-radio-group class="col-12">
+        <div class="mb-3 ml-3">Sexo</div>
+        <mat-radio-button class="col-6">
+          Femenino
+        </mat-radio-button>
+        <mat-radio-button class="ml-6">
+          Masculino
+        </mat-radio-button>
+        </mat-radio-group> -->
+
+      <div class="mt-2">
+        <button mat-flat-button color="accent" type="text" (click)="nextStep()" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Siguiente  </button>
+      </div>
+
+    </ng-container>
+
+    <div formGroupName="address">
+      <ng-template #stepTwo>
+
+      <!-- <h2 class="text-themecolor"> Direccion </h2>    -->
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Calles"
+                  formControlName="streetAddress">
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Ciudad"
+                  formControlName="city">
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <input matInput placeholder="Provincia"
+                  formControlName="state">
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Codigo Postal"
+                  formControlName="zipCode"
+                  type="number">
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="País"
+                  formControlName="country">
+        </mat-form-field>
+
+        <div class="row col-12 m-0">
+          <div class="mt-2 col-6">
+            <button mat-flat-button color="warn" type="text" (click)="backStep()"  class="btn btn-block"> <mat-icon> keyboard_backspace </mat-icon> Volver  </button>
+          </div>
+
+          <div class="mt-2 col-6">
+            <button mat-flat-button color="accent" type="submit"  class="btn btn-block"> <mat-icon> add_circle </mat-icon> Crear  </button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
+  </div>
+
+</form>

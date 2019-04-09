@@ -24,37 +24,9 @@ export interface State {
 export class StudentCreateOrUpdateComponent implements OnInit {
 
   careers: ICareer[];
-  stateCtrl = new FormControl();
   filteredStates: Observable<State[]>;
   studentForm: FormGroup;
   step = true;
-
-  states: State[] = [
-    {
-      name: 'Juan Fernandez',
-      population: '2.978M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Arkansas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/9/9d/Flag_of_Arkansas.svg'
-    },
-    {
-      name: 'Maximiliano Sar Fernandez',
-      population: '39.14M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_California.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/0/01/Flag_of_California.svg'
-    },
-    {
-      name: 'Pedro Troglio',
-      population: '20.27M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Florida.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Florida.svg'
-    },
-    {
-      name: 'Martin Scorccese',
-      population: '27.47M',
-      // https://commons.wikimedia.org/wiki/File:Flag_of_Texas.svg
-      flag: 'https://upload.wikimedia.org/wikipedia/commons/f/f7/Flag_of_Texas.svg'
-    }
-  ];
 
   constructor(public fb: FormBuilder,
               private studentService: StudentService,
@@ -65,17 +37,6 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   ngOnInit() {
     this.GetCareers();
     this.onLoad();
-    this.filteredStates = this.stateCtrl.valueChanges
-      .pipe(
-        startWith(''),
-        map(state => state ? this._filterStates(state) : this.states.slice())
-      );
-  }
-
-  private _filterStates(value: string): State[] {
-    const filterValue = value.toLowerCase();
-
-    return this.states.filter(state => state.name.toLowerCase().indexOf(filterValue) === 0);
   }
 
   GetCareers(): void {
@@ -106,10 +67,6 @@ export class StudentCreateOrUpdateComponent implements OnInit {
     });
   }
 
-  nextStep(): void {
-    this.step = false;
-  }
-
   searchTeacherDialog() {
       const dialogRef = this.dialog.open(TeacherSearchDialogComponent, {
         width: '800px',
@@ -128,6 +85,10 @@ export class StudentCreateOrUpdateComponent implements OnInit {
           this.router.navigate(['/career']);
         }
       }), (error: any) => console.log(error));
+  }
+
+  nextStep(): void {
+    this.step = false;
   }
 
   backStep(): void {
