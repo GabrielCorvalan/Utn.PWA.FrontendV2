@@ -8,7 +8,7 @@ import { LoginModule } from './components/pages/login/login.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TeacherSearchDialogComponent } from './components/pages/teacher/teacher-search-dialog/teacher-search-dialog.component';
-import { SimpleNotificationsModule } from 'angular2-notifications';
+import { SimpleNotificationsModule } from 'angular2-notifications'; import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
   declarations: [
@@ -22,6 +22,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications';
     BrowserModule,
     AppRoutingModule,
     SimpleNotificationsModule.forRoot(),
+    NgxSpinnerModule,
     HttpClientModule,
     MaterialModule,
     LoginModule,

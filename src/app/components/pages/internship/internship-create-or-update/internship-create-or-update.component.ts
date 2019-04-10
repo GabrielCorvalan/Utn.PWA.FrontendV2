@@ -39,7 +39,22 @@ export const MY_FORMATS = {
   ],
 })
 export class InternshipCreateOrUpdateComponent implements OnInit {
-  fGroup: FormGroup;
+
+  fGroup = this.fb.group({
+    startDate: ['', [Validators.required]],
+    endDate: ['', [Validators.required]],
+    taskDescription: ['', Validators.required],
+    companyId: ['', Validators.required],
+    // companyId: [this.fGroup.controls.company.value ? this.fGroup.controls.company.value.id : null],
+    studentId: ['', Validators.required],
+    // studentId: [this.fGroup.controls.student.value ? this.fGroup.controls.student.value.id : null],
+    companyTutorId: ['', Validators.required],
+    companySignatory: ['', Validators.required],
+    salaryWorkAssignment: ['', Validators.required],
+    workAgreement: ['', Validators.required],
+    dailyHours: ['', Validators.required]
+  });
+
   filteredCompanies: Observable<ICompany[]>;
   filteredCompanyTutors: Observable<ICompanyTutor[]>;
   filteredStudents: Observable<IStudent[]>;
@@ -61,7 +76,7 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
                private router: Router ) { }
 
   public ngOnInit() {
-    this.CreateLoadFormAndData();
+    this.loadData();
   }
 
   private getCompanies() {
@@ -104,8 +119,9 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
   }
 
   displayStudentFn(studentId?: string): string | undefined {
-    if(this.students)
+    if (this.students) {
       var studentF = this.students.filter(student => student.id === studentId)[0]
+    }
     return studentF ? `${studentF.names} ${studentF.surnames} ${studentF.cuil}` : undefined;
   }
 
@@ -141,21 +157,7 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
           .filter(companyTutor => `${companyTutor.names} ${companyTutor.surnames} - ${companyTutor.dni}`.toLowerCase().includes(filterValue));
   }
 
-  private CreateLoadFormAndData() {
-    this.fGroup = this.fb.group({
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-      taskDescription: ['', Validators.required],
-      companyId: ['', Validators.required],
-      // companyId: [this.fGroup.controls.company.value ? this.fGroup.controls.company.value.id : null],
-      studentId: ['', Validators.required],
-      // studentId: [this.fGroup.controls.student.value ? this.fGroup.controls.student.value.id : null],
-      companyTutorId: ['', Validators.required],
-      companySignatory: ['', Validators.required],
-      salaryWorkAssignment: ['', Validators.required],
-      workAgreement: ['', Validators.required],
-      dailyHours: ['', Validators.required]
-    });
+  private loadData() {
     this.getCompanies();
     this.getStudents();
     this.getCompanyTutors();

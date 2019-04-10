@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { IInternship } from 'src/app/intefaces/IInternship';
 import { InternshipService } from './internship.service';
 import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-internship',
@@ -13,9 +14,11 @@ export class InternshipComponent implements OnInit {
 
   internships: IInternship[];
   constructor(private internshipService: InternshipService,
+              private spinner: NgxSpinnerService,
               public dialog: MatDialog) { }
 
   ngOnInit() {
+    this.spinner.show();
     this.GetInternships();
   }
 
@@ -23,6 +26,7 @@ export class InternshipComponent implements OnInit {
     this.internshipService.getAllInternships()
       .subscribe((res: IInternship[]) => {
           this.internships = res;
+          this.spinner.hide();
       }, (error: any): void => console.log(error));
   }
 
