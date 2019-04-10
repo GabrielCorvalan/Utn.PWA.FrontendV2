@@ -1,62 +1,48 @@
 <div class="page-container">
-    <a href="javascript:void(0)" routerLink="/company-turors/create-or-update" tittle="agregar"><mat-icon>add_circle</mat-icon></a>
-    <div class="content-container">
-      <mat-card class="card-item" *ngFor="let companyTutor of companyTutors">
-        <div class="card-header" fxLayout="row" fxLayoutAlign="space-betwen center">
-          <h3 class="card-title" fxFlex>{{companyTutor.names}} {{companyTutor.surnames}}</h3>
-          <div class="card-actions" fxFlex="2rem">
-            <button mat-mini-fab color="primary" mat-tooltip="Editar">
-              <mat-icon>edit</mat-icon>
-            </button>
-            <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu"><mat-icon>expand_more</mat-icon></button>
-          </div>
-          <mat-menu #menu="matMenu">
-            <button mat-menu-item>
-              <mat-icon> library_books </mat-icon>
-              <span> Comprobantes </span>
-            </button>
-          </mat-menu>
+  <a href="javascript:void(0)" routerLink="/company-turors/create-or-update" tittle="agregar"><mat-icon>add_circle</mat-icon></a>
+  <div class="content-container">
+    <mat-card class="card-item" *ngFor="let companyTutor of companyTutors">
+      <div class="card-header" fxLayout="row" fxLayoutAlign="space-betwen center">
+        <h3 class="card-title" fxFlex>{{companyTutor.names}} {{companyTutor.surnames}}</h3>
+        <div class="card-actions" fxFlex="6rem">
+          <button mat-mini-fab color="primary" mat-tooltip="Editar"><mat-icon>edit</mat-icon></button>
+          <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu"><mat-icon>expand_more</mat-icon></button>
         </div>
-        <div class="flex-container" fxLayout="row" fxLayout.xs="column">
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Carrera</p>
-            <p class="card-info-text">{{companyTutor.company.name}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Dni</p>
-            <p class="card-info-text">{{companyTutor.dni}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Email</p>
-            <p class="card-info-text">{{companyTutor.email}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Fecha de Nacimiento</p>
-            <p class="card-info-text">{{companyTutor.birthdate | date}}</p>
-          </div>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item>
+            <mat-icon> library_books </mat-icon>
+            <span> Comprobantes </span>
+          </button>
+        </mat-menu>
+      </div>
+      <div class="flex-container" fxLayout="row" fxLayout.xs="column">
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Empresa a la que pertenece</p>
+          <p class="card-info-text">{{companyTutor.company.name}}</p>
         </div>
-        <!-- <div class="flex-container" fxLayout="row" fxLayout.xs="column">
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Cuil</p>
-            <p class="card-info-text">{{companyTutor.cuil}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Cuil</p>
-            <p class="card-info-text">{{companyTutor.cuil}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Cuil</p>
-            <p class="card-info-text">{{companyTutor.cuil}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Cuil</p>
-            <p class="card-info-text">{{companyTutor.cuil}}</p>
-          </div>
-          <div fxFlex="20" class="card-item-info">
-            <p class="card-info-title">Cuil</p>
-            <p class="card-info-text">{{companyTutor.cuil}}</p>
-          </div>
-        </div> -->
-      </mat-card>
-    </div>
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Dni</p>
+          <p class="card-info-text">{{companyTutor.dni}}</p>
+        </div>
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Email</p>
+          <p class="card-info-text">{{companyTutor.email}}</p>
+        </div>
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Fecha de Nacimiento</p>
+          <p class="card-info-text">{{companyTutor.birthdate | date}}</p>
+        </div>
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Cuil</p>
+          <p class="card-info-text">{{companyTutor.cuil}}</p>
+        </div>
+      </div>
+      <div class="flex-container" fxLayout="row" fxLayout.xs="column">
+        <div fxFlex="20" class="card-item-info">
+          <p class="card-info-title">Genero</p>
+          <p class="card-info-text">{{companyTutor.sex}}</p>
+        </div>
+      </div>
+    </mat-card>
   </div>
+</div>

@@ -64,7 +64,6 @@ export class CompanyTutorCreateOrUdateComponent implements OnInit {
     .subscribe(((res: ICompany[]) => {
       this.companies = res;
     }), (error: any) => console.log(error));
-
   }
 
   onSubmit(): void {
