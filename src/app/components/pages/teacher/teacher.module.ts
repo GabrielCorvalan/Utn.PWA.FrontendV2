@@ -7,7 +7,7 @@ import { TeacherService } from './teacher.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { TeacherRoutingModule } from './teacher-routing.module';
-import { TeacherSearchDialogComponent } from './teacher-search-dialog/teacher-search-dialog.component';
+import { SearchDialogComponent } from './search-dialog/search-dialog.component';
 import { FlexLayoutModule } from '@angular/flex-layout';
 
 @NgModule({

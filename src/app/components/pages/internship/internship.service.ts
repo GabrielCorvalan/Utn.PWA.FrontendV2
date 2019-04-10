@@ -33,6 +33,15 @@ export class InternshipService extends DataService {
       catchError(this.handleError), );
   }
 
+  getInternshipFormById(id: number): Observable<IInternship> {
+    return this.http.get(this._baseUrl + '/internship/getForm' + id).pipe(
+      map((res: IInternship) => {
+        return res;
+      }),
+
+      catchError(this.handleError), );
+  }
+
   createInternship(internship: IInternship): Observable<boolean> {
     let header = this._headers.set('Content-Type', `application/json`);
     const result = JSON.stringify(internship);

@@ -1,19 +1,19 @@
+import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { FormBuilder, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 // import * as frLocale from 'date-fns/locale/fr';
 import { ICompany } from 'src/app/intefaces/ICompany';
-import { CompanyService } from '../../company/company.service';
 import { IStudent } from 'src/app/intefaces/IStudent';
-import { StudentService } from '../../student/student.service';
 import {MAT_MOMENT_DATE_FORMATS, MomentDateAdapter} from '@angular/material-moment-adapter';
 import {DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE} from '@angular/material/core';
 import * as _moment from 'moment';
 import { InternshipService } from '../internship.service';
-import { Router } from '@angular/router';
-import { CompanyTutorService } from '../../company-tutor/company-tutor.service';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
+import { MatDialog } from '@angular/material';
+import { SearchDialogComponent } from '../../teacher/search-dialog/search-dialog.component';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 
 const moment = _moment;
 
@@ -40,6 +40,10 @@ export const MY_FORMATS = {
 })
 export class InternshipCreateOrUpdateComponent implements OnInit {
 
+  studentViewValue = 'Seleccione un estudiante';
+  companyViewValue = 'Seleccione un Profesor';
+  tutorViewValue = 'seleccione un tutor de la empresa';
+
   fGroup = this.fb.group({
     startDate: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
@@ -55,112 +59,86 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
     dailyHours: ['', Validators.required]
   });
 
-  filteredCompanies: Observable<ICompany[]>;
-  filteredCompanyTutors: Observable<ICompanyTutor[]>;
-  filteredStudents: Observable<IStudent[]>;
   date: Date = new Date();
 
   // options: DatepickerOptions = {
   //   locale: frLocale
   // };
 
-  companies: ICompany[];
-  companyTutors: ICompanyTutor[];
-  students: IStudent[];
+  companyTutor: ICompanyTutor;
+  student: IStudent;
+  company: ICompany;
 
-  constructor( private companyService: CompanyService,
-               private studentService: StudentService,
-               private fb: FormBuilder,
+  constructor( private fb: FormBuilder,
                private intershipService: InternshipService,
-               private companyTutorService: CompanyTutorService,
-               private router: Router ) { }
+               private notificationService: NotificationsService,
+               private spinner: NgxSpinnerService,
+               private router: Router,
+               private dialog: MatDialog,
+               private route: ActivatedRoute ) { }
 
   public ngOnInit() {
-    this.loadData();
-  }
-
-  private getCompanies() {
-    this.companyService.getAllCompanies()
-    .subscribe((res: ICompany[]) => {
-      this.companies = res;
-      this.filteredCompanies = this.fGroup.controls.companyId.valueChanges
-      .pipe(
-        startWith<string | ICompany>(''),
-        map(value => typeof value === 'string' ? value : value.name),
-        map(company => company ? this._filterCompanies(company) : this.companies.slice())
-      );
-    });
-  }
-
-  private getCompanyTutors() {
-    this.companyTutorService.getAllCompanyTutors()
-    .subscribe((res: ICompanyTutor[]) => {
-      this.companyTutors = res;
-      this.filteredCompanyTutors = this.fGroup.controls.companyTutorId.valueChanges
-      .pipe(
-        startWith<string | ICompanyTutor>(''),
-        map(value => typeof value === 'string' ? value : value.names),
-        map(companyTutor => companyTutor ? this._filterCompanyTutors(companyTutor) : this.companyTutors.slice())
-      );
-    });
-  }
-
-  private getStudents() {
-    this.studentService.getAllStudents()
-    .subscribe((res: IStudent[]) => {
-      this.students = res;
-      this.filteredStudents = this.fGroup.controls.studentId.valueChanges
-      .pipe(
-        startWith<string | IStudent>(''),
-        map(value => typeof value === 'string' ? value : value.names),
-        map(student => student ? this._filterStudents(student) : this.students.slice())
-      );
-    });
-  }
-
-  displayStudentFn(studentId?: string): string | undefined {
-    if (this.students) {
-      var studentF = this.students.filter(student => student.id === studentId)[0]
+    const idParam: number = this.route.snapshot.params.id;
+    if ( idParam ) {
+      this.spinner.show();
+      this.intershipService.getInternshipFormById(idParam)
+      .subscribe((res: any) => {
+        this.fGroup.setValue(res);
+        this.spinner.hide();
+      }, (error: any) => {
+        console.log(error);
+        this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+        this.spinner.hide();
+      });
     }
-    return studentF ? `${studentF.names} ${studentF.surnames} ${studentF.cuil}` : undefined;
   }
 
-  displayCompanyFn(companyId?: string): string | undefined {
-      if(this.companies)
-      var companyF = this.companies.filter(company => company.id === companyId)[0];
-    return companyF ? `${companyF.name} ${companyF.cuit}` : undefined;
+  public searchCompany(searchType: number) {
+    const dialogRef = this.dialog.open(SearchDialogComponent, {
+      width: '800px',
+      height: '600px',
+      data: searchType
+    });
+
+    dialogRef.afterClosed()
+    .subscribe((searchedCompany: ICompany) => {
+      this.companyViewValue = searchedCompany.name;
+      this.company = searchedCompany;
+      this.fGroup.get('companyId').setValue(this.company.id);
+      console.log('se cerro');
+    });
   }
 
-  displayCompanyTutorFn(companyTutorId?: string): string | undefined {
-    console.log(companyTutorId);
-    if(this.companyTutors)
-    var companyTutorF = this.companyTutors.filter(companyTutor => companyTutor.id === companyTutorId)[0];
-  return companyTutorF ? `${companyTutorF.names} ${companyTutorF.surnames} - ${companyTutorF.dni}` : undefined;
-}
+  public searchStudent(searchType: number) {
+    const dialogRef = this.dialog.open(SearchDialogComponent, {
+      width: '800px',
+      height: '600px',
+      data: searchType
+    });
 
-  private _filterCompanies(value: string): ICompany[] {
-    const filterValue = value.toLowerCase();
-
-    return this.companies.filter(company => `${company.name} - ${company.cuit}`.toLowerCase().includes(filterValue));
+    dialogRef.afterClosed()
+    .subscribe((searchedStudent: IStudent) => {
+      this.studentViewValue = `${searchedStudent.names} ${searchedStudent.surnames}`;
+      this.student = searchedStudent;
+      this.fGroup.get('studentId').setValue(this.student.id);
+      console.log('se cerro');
+    });
   }
 
-  private _filterStudents(value: string): IStudent[] {
-    const filterValue = value.toLowerCase();
+  public searchCompanyTutor(searchType: number) {
+    const dialogRef = this.dialog.open(SearchDialogComponent, {
+      width: '800px',
+      height: '600px',
+      data: searchType
+    });
 
-    return this.students.filter(student => `${student.names} ${student.surnames} - ${student.dni}`.toLowerCase().includes(filterValue));
-  }
-
-  private _filterCompanyTutors(value: string): ICompanyTutor[] {
-    const filterValue = value.toLowerCase();
-
-    return this.companyTutors
-          .filter(companyTutor => `${companyTutor.names} ${companyTutor.surnames} - ${companyTutor.dni}`.toLowerCase().includes(filterValue));
-  }
-
-  private loadData() {
-    this.getCompanies();
-    this.getStudents();
-    this.getCompanyTutors();
+    dialogRef.afterClosed()
+    .subscribe((searchedCompanyTutor: ICompanyTutor) => {
+      this.tutorViewValue = `${searchedCompanyTutor.names} ${searchedCompanyTutor.surnames}`;
+      this.companyTutor = searchedCompanyTutor;
+      this.fGroup.get('companyTutorId').setValue(this.companyTutor.id);
+      console.log('se cerro');
+    });
   }
 
   public onSubmit() {

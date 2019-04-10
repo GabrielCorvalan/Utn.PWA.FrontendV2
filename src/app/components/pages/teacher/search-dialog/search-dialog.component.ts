@@ -1,31 +1,32 @@
-import { ITeacher } from './../../../../intefaces/ITeacher';
+import { IStudent } from './../../../../intefaces/IStudent';
+import { NgxSpinnerService } from 'ngx-spinner';
+import { ITeacher } from '../../../../intefaces/ITeacher';
 import { Component, OnInit, Inject } from '@angular/core';
 import { TeacherService } from '../teacher.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
-import { IStudent } from 'src/app/intefaces/IStudent';
 import { CompanyTutorService } from '../../company-tutor/company-tutor.service';
 import { StudentService } from '../../student/student.service';
 
 @Component({
-  selector: 'app-teacher-search-dialog',
-  templateUrl: './teacher-search-dialog.component.html',
-  styleUrls: ['./teacher-search-dialog.component.scss']
+  selector: 'app-search-dialog',
+  templateUrl: './search-dialog.component.html',
+  styleUrls: ['./search-dialog.component.scss']
 })
-export class TeacherSearchDialogComponent implements OnInit {
-  teachers: ITeacher[];
-  tutors: ICompanyTutor[];
-  students: IStudent[];
+export class SearchDialogComponent implements OnInit {
+  persons: any[];
   constructor(private teacherService: TeacherService,
               private tutorService: CompanyTutorService,
               private studentService: StudentService,
-              public dialogRef: MatDialogRef<TeacherSearchDialogComponent>,
+              private spinner: NgxSpinnerService,
+              public dialogRef: MatDialogRef<SearchDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public type: number ) { }
 
   ngOnInit() {
   }
 
   onClickSearch(filter: string): void {
+    this.spinner.show();
     if ( this.type === 1 ) {
       this.searchTeachers(filter);
     } else if ( this.type === 2 ) {
@@ -35,11 +36,17 @@ export class TeacherSearchDialogComponent implements OnInit {
     }
   }
 
+  onSelectButton(dni: string) {
+    const person = this.persons.filter(p => p.dni === dni);
+    this.dialogRef.close(person);
+  }
+
   searchTeachers(filter: string) {
     this.teacherService.getTeachersByFilter(filter)
     .subscribe((res: ITeacher[]) => {
-      this.teachers = res;
-      console.log('teachers', this.teachers);
+      this.persons = res;
+      this.spinner.hide();
+      console.log('teachers', this.persons);
 
     }, (error: any): void => console.log(error));
   }
@@ -47,8 +54,9 @@ export class TeacherSearchDialogComponent implements OnInit {
   searchStudents(filter: string) {
     this.studentService.getStudentsByFilter(filter)
     .subscribe((res: IStudent[]) => {
-      this.students = res;
-      console.log('students', this.students);
+      this.persons = res;
+      this.spinner.hide();
+      console.log('students', this.persons);
 
     }, (error: any): void => console.log(error));
   }
@@ -56,8 +64,9 @@ export class TeacherSearchDialogComponent implements OnInit {
   searchTutors(filter: string) {
     this.tutorService.getTutorsByFilter(filter)
     .subscribe((res: ICompanyTutor[]) => {
-      this.tutors = res;
-      console.log('tutors', this.tutors);
+      this.persons = res;
+      this.spinner.hide();
+      console.log('tutors', this.persons);
 
     }, (error: any): void => console.log(error));
   }

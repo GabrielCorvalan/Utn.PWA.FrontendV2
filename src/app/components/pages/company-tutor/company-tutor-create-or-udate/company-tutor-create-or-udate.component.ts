@@ -1,12 +1,10 @@
 import { ICompanyTutor } from './../../../../intefaces/ICompanyTutor';
 import { CompanyTutorService } from './../company-tutor.service';
 import { Component, OnInit } from '@angular/core';
-import { IStudent } from 'src/app/intefaces/IStudent';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { StudentService } from '../../student/student.service';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { MatDialog } from '@angular/material';
-import { TeacherSearchDialogComponent } from '../../teacher/teacher-search-dialog/teacher-search-dialog.component';
+import { SearchDialogComponent } from '../../teacher/search-dialog/search-dialog.component';
 import { ICompany } from 'src/app/intefaces/ICompany';
 import { CompanyService } from '../../company/company.service';
 
@@ -49,7 +47,7 @@ export class CompanyTutorCreateOrUdateComponent implements OnInit {
   }
 
   searchTeacherDialog() {
-      const dialogRef = this.dialog.open(TeacherSearchDialogComponent, {
+      const dialogRef = this.dialog.open(SearchDialogComponent, {
         width: '800px',
         height: '600px'
       });

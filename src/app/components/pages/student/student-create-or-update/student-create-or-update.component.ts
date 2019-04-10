@@ -6,7 +6,7 @@ import { StudentService } from '../student.service';
 import { CareerService } from '../../career/career.service';
 import { ICareer } from 'src/app/intefaces/ICareer';
 import { Router } from '@angular/router';
-import { TeacherSearchDialogComponent } from '../../teacher/teacher-search-dialog/teacher-search-dialog.component';
+import { SearchDialogComponent } from '../../teacher/search-dialog/search-dialog.component';
 import { MatDialog } from '@angular/material';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 
@@ -70,7 +70,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   }
 
   searchTeacherDialog() {
-      const dialogRef = this.dialog.open(TeacherSearchDialogComponent, {
+      const dialogRef = this.dialog.open(SearchDialogComponent, {
         width: '800px',
         height: '600px'
       });

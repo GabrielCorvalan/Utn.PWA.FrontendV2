@@ -7,7 +7,7 @@ import { PagesModule } from './components/pages/pages.module'; import {BrowserAn
 import { LoginModule } from './components/pages/login/login.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
-import { TeacherSearchDialogComponent } from './components/pages/teacher/teacher-search-dialog/teacher-search-dialog.component';
+import { SearchDialogComponent } from './components/pages/teacher/search-dialog/search-dialog.component';
 import { SimpleNotificationsModule } from 'angular2-notifications'; import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
@@ -16,7 +16,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications'; import { Ngx
     SidebarComponent,
     HeaderComponent,
     MainComponent,
-    TeacherSearchDialogComponent
+    SearchDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -31,6 +31,6 @@ import { SimpleNotificationsModule } from 'angular2-notifications'; import { Ngx
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [TeacherSearchDialogComponent]
+  entryComponents: [SearchDialogComponent]
 })
 export class AppModule { }

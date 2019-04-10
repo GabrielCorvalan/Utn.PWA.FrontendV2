@@ -4,26 +4,15 @@
   <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
 
     <mat-form-field class="col-12 col-sm-6">
-      <input matInput placeholder="Estudiante" aria-label="State"
-             [matAutocomplete]="studentAuto" formControlName="studentId">
-      <mat-autocomplete #studentAuto="matAutocomplete" [displayWith]="displayStudentFn.bind(this)">
-        <mat-option *ngFor="let student of filteredStudents | async" [value]="student.id">
-          <!-- <img class="example-option-img" aria-hidden [src]="student.flag" height="25"> -->
-          <span>     {{student.names}} {{student.surnames}} - {{student.dni}} </span>
-        </mat-option>
-      </mat-autocomplete>
+      <input mdInput placeholder="Estudiante" [value]="studentViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
+      <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchStudent(1)"><mat-icon>search</mat-icon></button>
     </mat-form-field>
 
     <mat-form-field class="col-12 col-sm-6">
-      <input matInput placeholder="Empresa" aria-label="State" [matAutocomplete]="auto"
-             formControlName="companyId">
-      <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayCompanyFn.bind(this)">
-        <mat-option *ngFor="let company of filteredCompanies | async" [value]="company.id">
-          <!-- <img class="example-option-img" aria-hidden [src]="company.flag" height="25"> -->
-          <span>     {{company.name}} - {{company.cuit}}</span>
-        </mat-option>
-      </mat-autocomplete>
+      <input mdInput placeholder="Empresa" [value]="companyViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
+      <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompany(2)"><mat-icon>search</mat-icon></button>
     </mat-form-field>
+
 
     <mat-form-field class="col-12 col-sm-6">
       <input matInput [matDatepicker]="startPicker" readonly formControlName="startDate"
@@ -49,15 +38,9 @@
       </textarea>
     </mat-form-field>
 
-    <mat-form-field class="col-12">
-      <input matInput placeholder="Tutor (De la Empresa)" aria-label="Tutor"
-             [matAutocomplete]="CtutorAuto" formControlName="companyTutorId">
-      <mat-autocomplete #CtutorAuto="matAutocomplete" [displayWith]="displayCompanyTutorFn.bind(this)">
-        <mat-option *ngFor="let companyTutor of filteredCompanyTutors | async" [value]="companyTutor.id">
-          <!-- <img class="example-option-img" aria-hidden [src]="company.flag" height="25"> -->
-          <span>     {{companyTutor.names}} {{companyTutor.surnames}} - {{companyTutor.dni}} </span>
-        </mat-option>
-      </mat-autocomplete>
+    <mat-form-field class="col-12 col-sm-6">
+      <input mdInput placeholder="Tutor de la empresa" data-toggle="tooltip" data-placement="bottom" title="Value">
+      <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompanyTutor(3)"><mat-icon>search</mat-icon></button>
     </mat-form-field>
 
     <mat-form-field class="col-12">
