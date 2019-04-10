@@ -8,6 +8,7 @@ import { LoginModule } from './components/pages/login/login.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { TeacherSearchDialogComponent } from './components/pages/teacher/teacher-search-dialog/teacher-search-dialog.component';
+import { SimpleNotificationsModule } from 'angular2-notifications';
 
 @NgModule({
   declarations: [
@@ -20,11 +21,12 @@ import { TeacherSearchDialogComponent } from './components/pages/teacher/teacher
   imports: [
     BrowserModule,
     AppRoutingModule,
+    SimpleNotificationsModule.forRoot(),
     HttpClientModule,
     MaterialModule,
     LoginModule,
     BrowserAnimationsModule,
-    FlexLayoutModule
+    FlexLayoutModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

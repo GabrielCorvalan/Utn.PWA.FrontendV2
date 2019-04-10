@@ -8,6 +8,7 @@ import { ICareer } from 'src/app/intefaces/ICareer';
 import { Router } from '@angular/router';
 import { TeacherSearchDialogComponent } from '../../teacher/teacher-search-dialog/teacher-search-dialog.component';
 import { MatDialog } from '@angular/material';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 
 export interface State {
   flag: string;
@@ -31,6 +32,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   constructor(public fb: FormBuilder,
               private studentService: StudentService,
               private careerService: CareerService,
+              private notificationService: NotificationsService,
               private router: Router,
               private dialog: MatDialog ) {  }
 
@@ -82,9 +84,13 @@ export class StudentCreateOrUpdateComponent implements OnInit {
     this.studentService.createStudent(this.studentForm.value)
       .subscribe(((res: boolean) => {
         if (res) {
+          this.notificationService.create('Muy bien!', 'Estudiante creado correctamente.', NotificationType.Success);
           this.router.navigate(['/career']);
         }
-      }), (error: any) => console.log(error));
+      }), (error: any) => {
+        console.log(error);
+        this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+      });
   }
 
   nextStep(): void {

@@ -20,8 +20,6 @@ export class StudentComponent implements OnInit {
     this.studentService.getAllStudents()
       .subscribe((res: IStudent[]) => {
           this.students = res;
-          console.log('students', this.students);
-
       }, (error: any): void => console.log(error));
   }
 
