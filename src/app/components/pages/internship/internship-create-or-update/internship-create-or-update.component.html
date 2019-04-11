@@ -1,4 +1,4 @@
-<h2 class="text-center text-themecolor"> Nueva Pasantia </h2> <br>
+<h3> Nueva Pasantia </h3>x
 
 <form [formGroup]="fGroup" (ngSubmit)="onSubmit()">
   <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
@@ -6,19 +6,21 @@
     <mat-form-field class="col-12 col-sm-6">
       <input mdInput placeholder="Estudiante" [value]="studentViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
       <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchStudent(1)"><mat-icon>search</mat-icon></button>
+      <mat-error *ngIf="fGroup.get('studentId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12 col-sm-6">
       <input mdInput placeholder="Empresa" [value]="companyViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
       <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompany(2)"><mat-icon>search</mat-icon></button>
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
 
     <mat-form-field class="col-12 col-sm-6">
-      <input matInput [matDatepicker]="startPicker" readonly formControlName="startDate"
-             autocomplete="off" placeholder="Fecha de inicio">
+      <input matInput [matDatepicker]="startPicker" readonly formControlName="startDate" autocomplete="off" placeholder="Fecha de inicio">
       <mat-datepicker-toggle matSuffix [for]="startPicker"></mat-datepicker-toggle>
       <mat-datepicker #startPicker></mat-datepicker>
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12 col-sm-6">
@@ -26,40 +28,42 @@
              autocomplete="off" placeholder="Fecha de fin">
       <mat-datepicker-toggle matSuffix [for]="endPicker"></mat-datepicker-toggle>
       <mat-datepicker #endPicker></mat-datepicker>
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12">
-      <input matInput placeholder="Firmante de la Compania" formControlName="companySignatory"
-             autocomplete="off">
+      <input matInput placeholder="Firmante de la Compania" formControlName="companySignatory" autocomplete="off">
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12">
-      <textarea matInput formControlName="taskDescription" placeholder="Descripcion de las tareas">
-      </textarea>
+      <textarea matInput formControlName="taskDescription" placeholder="Descripcion de las tareas"></textarea>
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12 col-sm-6">
       <input mdInput placeholder="Tutor de la empresa" data-toggle="tooltip" data-placement="bottom" title="Value">
       <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompanyTutor(3)"><mat-icon>search</mat-icon></button>
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12">
-      <input matInput placeholder="Convenio Colectivo de Trabajo" formControlName="workAgreement"
-             autocomplete="off">
+      <input matInput placeholder="Convenio Colectivo de Trabajo" formControlName="workAgreement" autocomplete="off">
+      <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-5">
-      <input matInput placeholder="Horas diarias" type="number" formControlName="dailyHours"
-             autocomplete="off">
+      <input matInput placeholder="Horas diarias" type="number" formControlName="dailyHours" autocomplete="off">
+    <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-7">
-      <input matInput placeholder="Asignacion Estimulo" type="number"
-             formControlName="salaryWorkAssignment" autocomplete="off">
+      <input matInput placeholder="Asignacion Estimulo" type="number" formControlName="salaryWorkAssignment" autocomplete="off">
+    <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <div class="mt-2">
-      <button mat-flat-button color="accent" type="submit" class="btn btn-block">
+      <button mat-flat-button color="accent" type="submit" class="btn btn-block" [disabled]="fGroup.invalid">
         <mat-icon> add_circle </mat-icon> Añadir
       </button>
     </div>

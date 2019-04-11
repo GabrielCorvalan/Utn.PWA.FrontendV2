@@ -7,6 +7,7 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
 import { CompanyTutorService } from '../../company-tutor/company-tutor.service';
 import { StudentService } from '../../student/student.service';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 
 @Component({
   selector: 'app-search-dialog',
@@ -15,22 +16,31 @@ import { StudentService } from '../../student/student.service';
 })
 export class SearchDialogComponent implements OnInit {
   persons: any[];
+  title: string;
   constructor(private teacherService: TeacherService,
               private tutorService: CompanyTutorService,
               private studentService: StudentService,
               private spinner: NgxSpinnerService,
+              private notificationService: NotificationsService,
               public dialogRef: MatDialogRef<SearchDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public type: number ) { }
 
   ngOnInit() {
+    if ( this.type === 1) {
+      this.title = 'Estudiantes';
+    } else if (this.type === 2) {
+      this.title = 'Profesores';
+    } else {
+      this.title = 'Tutores';
+    }
   }
 
   onClickSearch(filter: string): void {
     this.spinner.show();
     if ( this.type === 1 ) {
-      this.searchTeachers(filter);
-    } else if ( this.type === 2 ) {
       this.searchStudents(filter);
+    } else if ( this.type === 2 ) {
+      this.searchTeachers(filter);
     } else {
       this.searchTutors(filter);
     }
@@ -47,8 +57,9 @@ export class SearchDialogComponent implements OnInit {
       this.persons = res;
       this.spinner.hide();
       console.log('teachers', this.persons);
-
-    }, (error: any): void => console.log(error));
+    }, (error: any): void => {
+      this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+    });
   }
 
   searchStudents(filter: string) {
@@ -58,7 +69,9 @@ export class SearchDialogComponent implements OnInit {
       this.spinner.hide();
       console.log('students', this.persons);
 
-    }, (error: any): void => console.log(error));
+    }, (error: any): void => {
+      this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+    });
   }
 
   searchTutors(filter: string) {
@@ -68,6 +81,8 @@ export class SearchDialogComponent implements OnInit {
       this.spinner.hide();
       console.log('tutors', this.persons);
 
-    }, (error: any): void => console.log(error));
+    }, (error: any): void => {
+      this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+    });
   }
 }

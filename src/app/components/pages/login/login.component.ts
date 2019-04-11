@@ -1,5 +1,6 @@
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, Validators } from '@angular/forms';
 import { LoginService } from './login.service';
 
 @Component({
@@ -33,21 +34,34 @@ import { LoginService } from './login.service';
   `]
 })
 export class LoginComponent implements OnInit {
-    formGroup: FormGroup;
-    constructor(private fb: FormBuilder, private loginService: LoginService) { }
+    formGroup = this.fb.group({
+      dni: ['', [Validators.required, Validators.pattern('[0-9]{8,10}')]],
+      password: ['', Validators.required]
+    });
+    constructor(private fb: FormBuilder,
+                private loginService: LoginService,
+                private notificationService: NotificationsService) { }
 
     ngOnInit() {
-        this.loadAndCreateForm();
     }
 
-    loadAndCreateForm(): void {
-        this.formGroup = this.fb.group({
-            dni: ['', [Validators.required, Validators.pattern('[0-9]{8,10}')]],
-            password: ['', Validators.required]
-        })
+    postLogin(): void {
+        this.loginService.postLogin(this.formGroup.value)
+        .subscribe((res) => {
+            console.log(res);
+          },
+          (error: any) => {
+            this.notificationService.create('Ups... Hubo un problema', error, NotificationType.Error);
+          }
+        );
     }
 
-    postLogin(): void {        
-        this.loginService.postLogin(this.formGroup.value).subscribe();  
+    onKeyPress(event: KeyboardEvent) {
+// tslint:disable-next-line: deprecation
+      const keycode = event.which;
+// tslint:disable-next-line: triple-equals
+      if (!(event.shiftKey == false && (keycode == 46 || keycode == 8 || keycode == 37 || keycode == 39 || (keycode >= 48 && keycode <= 57)))) {
+        event.preventDefault();
+      }
     }
 }

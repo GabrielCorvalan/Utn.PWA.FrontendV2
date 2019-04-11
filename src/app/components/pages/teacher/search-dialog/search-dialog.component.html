@@ -1,5 +1,5 @@
 <div class="modal-header">
-  <h2 class="modal-title">Profesores</h2>
+  <h2 class="modal-title">{{ title }}</h2>
   <!-- <div class="modal-close"><i class="material-icons">clear</i></div> -->
 </div>
 <div class="modal-content">
@@ -14,7 +14,7 @@
   <div class="flex-container">
     <!-- <loading dialog="true" name="dialog"></loading> -->
     <div class="grid-container">
-      <div class="grid-header" >
+      <div class="grid-header">
         <p class="grid-title" fxFlex>ID</p>
         <p class="grid-title" fxFlex>Nombre Completo</p>
         <p class="grid-title" fxFlex>Dni</p>
@@ -23,11 +23,11 @@
         <p class="grid-title" fxFlex="16rem">Prox. Fecha Venc</p> -->
       </div>
       <div class="grid-content">
-        <div class="grid-item-container" *ngFor="let teacher of teachers">
-          <p class="grid-item" fxFlex>{{ teacher.file }}</p>
-          <p class="grid-item" fxFlex>{{ teacher.names }} {{teacher.surnames}}</p>
-          <p class="grid-item" fxFlex>{{ teacher.dni }}</p>
-          <p class="grid-item" fxFlex>{{ teacher.cuil }}</p>
+        <div class="grid-item-container" *ngFor="let person of persons">
+          <p class="grid-item" fxFlex>{{ person.file }}</p>
+          <p class="grid-item" fxFlex>{{ person.names }} {{person.surnames}}</p>
+          <p class="grid-item" fxFlex>{{ person.dni }}</p>
+          <p class="grid-item" fxFlex>{{ person.cuil }}</p>
           <div class="grid-item" fxFlex="3rem">
             <button mat-mini-fab color="accent">
               <mat-icon>note_add</mat-icon>

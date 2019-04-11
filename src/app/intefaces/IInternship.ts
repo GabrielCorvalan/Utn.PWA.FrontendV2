@@ -2,6 +2,7 @@ import { ICompanyTutor } from './ICompanyTutor';
 import { IBase } from './IBase';
 import { IStudent } from './IStudent';
 import { ICompany } from './ICompany';
+import { IUser } from './IUser';
 
 export interface IInternship extends IBase {
     startDate: Date;
@@ -19,14 +20,14 @@ export interface IInternship extends IBase {
     companyId: number;
     companyMentorId: number;
     createdDate: Date;
-    userCreated: string;
+    userCreated: IUser;
     lastModified?: Date;
-    userLasModified?: string;
+    userLasModified?: IUser;
     cancellationDate?: Date;
-    userCancelattion?: string;
+    userCancelattion?: IUser;
     cancellationDescription?: string;
     renovationDate?: Date;
-    userRenovation?: string;
+    userRenovation?: IUser;
     confirmationState: string;
     observations?: string;
 }

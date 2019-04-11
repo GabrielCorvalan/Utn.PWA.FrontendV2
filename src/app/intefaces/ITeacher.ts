@@ -1,3 +1,4 @@
+import { IAddress } from './IAddress';
 import { IBase } from './IBase';
 import { ICareer } from './ICareer';
 
@@ -10,7 +11,7 @@ export interface ITeacher extends IBase {
     careerId: number;
     mentorId: number;
     sex: string;
-    address: string;
+    address: IAddress;
     birthdate: Date;
     email: string;
 

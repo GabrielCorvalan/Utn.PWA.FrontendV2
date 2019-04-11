@@ -13,6 +13,10 @@
           <mat-menu #menu="matMenu">
             <button (click)="cancelInternship(internship)" mat-menu-item>
               <mat-icon> library_books </mat-icon>
+              <span> Aprobar </span>
+            </button>
+            <button (click)="cancelInternship(internship)" mat-menu-item>
+              <mat-icon> library_books </mat-icon>
               <span> Cancelar </span>
             </button>
             <button (click)="cancelInternship(internship)" mat-menu-item>
@@ -69,18 +73,26 @@
           <div fxFlex="20" class="card-item-info">
             <p class="card-info-title">Dia de creacion</p>
             <p class="card-info-text">{{internship.createdDate | date: 'dd/MM/yyyy'}}</p>
+            <p class="card-info-title">Creado por</p>
+            <p class="card-info-text">{{internship.userCreated.names}} {{internship.userCreated.surnames}} [{{internship.userCreated.dni}}]</p>
           </div>
           <div fxFlex="20" class="card-item-info">
             <p class="card-info-title">Ultima modificacion</p>
             <p class="card-info-text">{{internship.lastModified | date: 'dd/MM/yyyy'}}</p>
+            <p class="card-info-title">Modificado por</p>
+            <p class="card-info-text">{{internship.userLasModified.names}} {{internship.userLasModified.surnames}} [{{internship.userLasModified.dni}}]</p>
           </div>
           <div fxFlex="20" class="card-item-info">
             <p class="card-info-title">Dia de cancelacion</p>
             <p class="card-info-text">{{internship.cancellationDate | date: 'dd/MM/yyyy'}}</p>
+            <p class="card-info-title">Cancelado por</p>
+            <p class="card-info-text">{{internship.userCancelattion.names}} {{internship.userCancelattion.surnames}} [{{internship.userCancelattion.dni}}]</p>
           </div>
           <div fxFlex="20" class="card-item-info">
             <p class="card-info-title">Dia de renovacion</p>
             <p class="card-info-text">{{internship.renovationDate | date: 'dd/MM/yyyy'}}</p>
+            <p class="card-info-title">Renovado por</p>
+            <p class="card-info-text">{{internship.userRenovation.names}} {{internship.userRenovation.surnames}} [{{internship.userRenovation.dni}}]</p>
           </div>
         </div>
       </mat-card>

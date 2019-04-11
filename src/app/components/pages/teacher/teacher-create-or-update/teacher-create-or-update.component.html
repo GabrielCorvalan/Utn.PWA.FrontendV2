@@ -1,123 +1,119 @@
-<h2 class="text-center text-themecolor"> Nuevo Profesor </h2> <br>
+<h3> {{pageTittle}} </h3> <br>
 
-<form [formGroup]="teacherForm" (submit)="onSubmit()" class="col-12 col-sm-6">
+<form [formGroup]="teacherForm" (submit)="onSubmit()">
+  <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
 
+    <ng-container *ngIf="step; else stepTwo">
 
-  <ng-container *ngIf="step; else stepTwo">
-
-  <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
-
-    <mat-form-field class="col-6">
-      <input matInput placeholder="Name"
-             formControlName="names">
-    </mat-form-field>
-      
-    <mat-form-field class="col-6">
-      <input matInput placeholder="Surname"
-             formControlName="surnames">
-    </mat-form-field>
-    
-    <mat-form-field class="col-12">
-      <input matInput placeholder="Email"
-             formControlName="email">
-    </mat-form-field>
-    
-    <mat-form-field class="col-6">
-      <input matInput placeholder="Dni"
-             formControlName="dni">
-    </mat-form-field>
-      
-    <mat-form-field class="col-6">
-      <input matInput placeholder="Cuil"
-             formControlName="cuil">
-    </mat-form-field>
-    
-    <mat-form-field class="col-8">
-      <mat-select placeholder="Carrera"
-                  formControlName="career"
-                  [value]>
-        <mat-option>
-          Programacion
-        </mat-option>
-        <mat-option value="Administracion de empresas">
-          Administracion de empresas
-        </mat-option>
-        <mat-option value="Ingenieria en Sistemas">
-          Ingenieria en Sistemas
-        </mat-option>
-        <mat-option value="Ingenieria Automotriz">
-          Ingenieria Automotriz
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    
-    <!-- Prueba 
-    <mat-form-field class="col-12">
-      <input matInput placeholder="Tutor" aria-label="State" [matAutocomplete]="auto" [formControl]="stateCtrl">
-      <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let state of filteredStates | async" [value]="state.name">
-          <img class="example-option-img" aria-hidden [src]="state.flag" height="25">
-          <span>     {{state.name}}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </mat-form-field>
-    Prueba -->
-    
-    <mat-radio-group class="col-12">
-      <div class="mb-3 ml-3">Sexo</div>
-      <mat-radio-button class="col-6">
-        Femenino
-      </mat-radio-button>
-      <mat-radio-button class="ml-6">
-        Masculino
-      </mat-radio-button>
-      </mat-radio-group>
-    
-    <div class="mt-2">
-      <button mat-flat-button color="accent" type="text" (click)="nextStep()" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Siguiente  </button>
-    </div>
-
-  </ng-container>
-
-  <div formGroupName="address">
-    <ng-template #stepTwo>
-        
-    <!-- <h2 class="text-themecolor"> Direccion </h2>    -->
+    <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
 
       <mat-form-field class="col-6">
-        <input matInput placeholder="Calles"
-                formControlName="streetAddress">
+        <input matInput placeholder="Name" formControlName="names" autocomplete="off">
+        <mat-error *ngIf="teacherForm.get('names').hasError('required')">
+          El nombre es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="teacherForm.get('names').hasError('pattern')">
+          Ingrese un nombre valido
+        </mat-error>
       </mat-form-field>
-        
+
       <mat-form-field class="col-6">
-        <input matInput placeholder="Ciudad"
-                formControlName="city">
+        <input matInput placeholder="Surname" formControlName="surnames" autocomplete="off">
+        <mat-error *ngIf="teacherForm.get('surnames').hasError('required')">
+          El nombre es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="teacherForm.get('surnames').hasError('pattern')">
+          Ingrese un nombre valido
+        </mat-error>
       </mat-form-field>
-      
+
       <mat-form-field class="col-12">
-        <input matInput placeholder="Provincia"
-                formControlName="state">
+        <input matInput placeholder="Email" formControlName="email" autocomplete="off">
+        <mat-error *ngIf="teacherForm.get('email').hasError('required')">
+          El Email es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="teacherForm.get('email').hasError('email')">
+          Ingrese un mail valido
+        </mat-error>
       </mat-form-field>
-      
+
       <mat-form-field class="col-6">
-        <input matInput placeholder="Codigo Postal"
-                formControlName="zipCode">
+        <input matInput placeholder="Dni" formControlName="dni" autocomplete="off" type="number">
+        <mat-error *ngIf="teacherForm.get('dni').hasError('required')">
+          El dni es <strong>requerido</strong>
+        </mat-error>
+        <mat-error *ngIf="teacherForm.get('dni').hasError('pattern')">
+          Ingrese un dni valido
+        </mat-error>
       </mat-form-field>
-        
+
       <mat-form-field class="col-6">
-        <input matInput placeholder="País"
-                formControlName="country">
+        <input matInput placeholder="Cuil" formControlName="cuil" autocomplete="off" type="number">
+        <mat-error *ngIf="teacherForm.get('cuil').hasError('pattern')">
+          Ingrese un cuil valido
+        </mat-error>
+        <mat-error *ngIf="teacherForm.get('cuil').hasError('required')">
+          El cuil es <strong>requerido</strong>
+        </mat-error>
       </mat-form-field>
-  
-  
+
       <div class="mt-2">
-        <button mat-flat-button color="accent" type="text" (click)="backStep()"  class="btn btn-block"> <mat-icon> add_circle </mat-icon> Volver  </button>
+        <button mat-flat-button color="accent" type="text" (click)="nextStep()" [disabled]="teacherForm.invalid" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Siguiente  </button>
       </div>
-  
-      <div class="mt-2">
-        <button mat-flat-button color="accent" type="submit"  class="btn btn-block"> <mat-icon> add_circle </mat-icon> Crear  </button>
-      </div>
-    </ng-template>
+
+    </ng-container>
+
+    <div formGroupName="address">
+      <ng-template #stepTwo>
+
+      <!-- <h2 class="text-themecolor"> Direccion </h2>    -->
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Calles" formControlName="streetAddress">
+          <mat-error *ngIf="teacherForm.get('streetAddress').hasError('required')">
+            Las calles son <strong>requeridas</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Ciudad" formControlName="city">
+          <mat-error *ngIf="teacherForm.get('city').hasError('required')">
+            La ciudad es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-12">
+          <input matInput placeholder="Provincia" formControlName="state">
+          <mat-error *ngIf="teacherForm.get('state').hasError('required')">
+            La provincia es <strong>requerida</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="Codigo Postal" formControlName="zipCode" type="number">
+          <mat-error *ngIf="teacherForm.get('zipCode').hasError('required')">
+            El Codigo postar es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="col-6">
+          <input matInput placeholder="País" formControlName="country">
+          <mat-error *ngIf="teacherForm.get('country').hasError('required')">
+            El pais es <strong>requerido</strong>
+          </mat-error>
+        </mat-form-field>
+
+        <div class="row col-12 m-0">
+          <div class="mt-2 col-6">
+            <button mat-flat-button color="warn" type="text" (click)="backStep()"  class="btn btn-block"> <mat-icon> keyboard_backspace </mat-icon> Volver  </button>
+          </div>
+
+          <div class="mt-2 col-6">
+            <button mat-flat-button color="accent" type="submit"  class="btn btn-block" [disabled]="teacherForm.get('address').invalid"> <mat-icon> add_circle </mat-icon> Crear  </button>
+          </div>
+        </div>
+      </ng-template>
+    </div>
   </div>
 
 </form>

@@ -1,4 +1,4 @@
-<h2 class="text-center text-themecolor"> Nuevo Estudiante </h2> <br>
+<h3> {{pageTittle}} </h3> <br>
 
 <form [formGroup]="studentForm" (submit)="onSubmit()">
   <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
@@ -8,9 +8,7 @@
     <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
 
       <mat-form-field class="col-6">
-        <input matInput placeholder="Name"
-              formControlName="names"
-              autocomplete="off">
+        <input matInput placeholder="Name" formControlName="names" autocomplete="off">
         <mat-error *ngIf="studentForm.get('names').hasError('required')">
           El nombre es <strong>requerido</strong>
         </mat-error>
@@ -20,9 +18,7 @@
       </mat-form-field>
 
       <mat-form-field class="col-6">
-        <input matInput placeholder="Surname"
-              formControlName="surnames"
-              autocomplete="off">
+        <input matInput placeholder="Surname" formControlName="surnames" autocomplete="off">
         <mat-error *ngIf="studentForm.get('surnames').hasError('required')">
           El nombre es <strong>requerido</strong>
         </mat-error>
@@ -32,9 +28,7 @@
       </mat-form-field>
 
       <mat-form-field class="col-12">
-        <input matInput placeholder="Email"
-              formControlName="email"
-              autocomplete="off">
+        <input matInput placeholder="Email" formControlName="email" autocomplete="off">
         <mat-error *ngIf="studentForm.get('email').hasError('required')">
           El Email es <strong>requerido</strong>
         </mat-error>
@@ -44,10 +38,7 @@
       </mat-form-field>
 
       <mat-form-field class="col-6">
-        <input matInput placeholder="Dni"
-              formControlName="dni"
-              autocomplete="off"
-              type="number">
+        <input matInput placeholder="Dni" formControlName="dni" autocomplete="off" type="number">
         <mat-error *ngIf="studentForm.get('dni').hasError('required')">
           El dni es <strong>requerido</strong>
         </mat-error>
@@ -62,7 +53,7 @@
           Ingrese un cuil valido
         </mat-error>
         <mat-error *ngIf="studentForm.get('cuil').hasError('required')">
-          el cuil es <strong>requerido</strong>
+          El cuil es <strong>requerido</strong>
         </mat-error>
       </mat-form-field>
 
@@ -72,6 +63,9 @@
             {{career.name}}
           </mat-option>
         </mat-select>
+        <mat-error *ngIf="studentForm.get('cuil').hasError('required')">
+          La carrera es <strong>requerida</strong>
+        </mat-error>
       </mat-form-field>
 
       <!-- Prueba -->
@@ -92,7 +86,7 @@
         </mat-radio-group> -->
 
       <div class="mt-2">
-        <button mat-flat-button color="accent" type="text" (click)="nextStep()" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Siguiente  </button>
+        <button mat-flat-button color="accent" type="text" (click)="nextStep()" [disabled]="studentForm.invalid" class="btn btn-block"> <mat-icon> add_circle </mat-icon> Siguiente  </button>
       </div>
 
     </ng-container>
@@ -103,29 +97,38 @@
       <!-- <h2 class="text-themecolor"> Direccion </h2>    -->
 
         <mat-form-field class="col-6">
-          <input matInput placeholder="Calles"
-                  formControlName="streetAddress">
+          <input matInput placeholder="Calles" formControlName="streetAddress">
+          <mat-error *ngIf="studentForm.get('streetAddress').hasError('required')">
+            Las calles son <strong>requeridas</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-6">
-          <input matInput placeholder="Ciudad"
-                  formControlName="city">
+          <input matInput placeholder="Ciudad" formControlName="city">
+          <mat-error *ngIf="studentForm.get('city').hasError('required')">
+            La ciudad es <strong>requerida</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-12">
-          <input matInput placeholder="Provincia"
-                  formControlName="state">
+          <input matInput placeholder="Provincia" formControlName="state">
+          <mat-error *ngIf="studentForm.get('state').hasError('required')">
+            La provincia es <strong>requerida</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-6">
-          <input matInput placeholder="Codigo Postal"
-                  formControlName="zipCode"
-                  type="number">
+          <input matInput placeholder="Codigo Postal" formControlName="zipCode" type="number">
+          <mat-error *ngIf="studentForm.get('zipCode').hasError('required')">
+            El Codigo postar es <strong>requerido</strong>
+          </mat-error>
         </mat-form-field>
 
         <mat-form-field class="col-6">
-          <input matInput placeholder="País"
-                  formControlName="country">
+          <input matInput placeholder="País" formControlName="country">
+          <mat-error *ngIf="studentForm.get('country').hasError('required')">
+            El pais es <strong>requerido</strong>
+          </mat-error>
         </mat-form-field>
 
         <div class="row col-12 m-0">
@@ -134,7 +137,7 @@
           </div>
 
           <div class="mt-2 col-6">
-            <button mat-flat-button color="accent" type="submit"  class="btn btn-block"> <mat-icon> add_circle </mat-icon> Crear  </button>
+            <button mat-flat-button color="accent" type="submit"  class="btn btn-block" [disabled]="studentForm.get('address').invalid"> <mat-icon> add_circle </mat-icon> Crear  </button>
           </div>
         </div>
       </ng-template>

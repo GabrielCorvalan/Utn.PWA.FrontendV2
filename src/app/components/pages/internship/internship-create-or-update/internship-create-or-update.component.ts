@@ -61,10 +61,6 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
 
   date: Date = new Date();
 
-  // options: DatepickerOptions = {
-  //   locale: frLocale
-  // };
-
   companyTutor: ICompanyTutor;
   student: IStudent;
   company: ICompany;
@@ -95,8 +91,8 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
 
   public searchCompany(searchType: number) {
     const dialogRef = this.dialog.open(SearchDialogComponent, {
-      width: '800px',
-      height: '600px',
+      width: '80%',
+      height: '80%',
       data: searchType
     });
 
@@ -111,8 +107,8 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
 
   public searchStudent(searchType: number) {
     const dialogRef = this.dialog.open(SearchDialogComponent, {
-      width: '800px',
-      height: '600px',
+      width: '80%',
+      height: '80%',
       data: searchType
     });
 
@@ -127,17 +123,17 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
 
   public searchCompanyTutor(searchType: number) {
     const dialogRef = this.dialog.open(SearchDialogComponent, {
-      width: '800px',
-      height: '600px',
+      width: '80%',
+      height: '80%',
       data: searchType
     });
 
     dialogRef.afterClosed()
     .subscribe((searchedCompanyTutor: ICompanyTutor) => {
+      console.log('se cerro', searchedCompanyTutor);
       this.tutorViewValue = `${searchedCompanyTutor.names} ${searchedCompanyTutor.surnames}`;
       this.companyTutor = searchedCompanyTutor;
       this.fGroup.get('companyTutorId').setValue(this.companyTutor.id);
-      console.log('se cerro');
     });
   }
 
@@ -151,8 +147,9 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
       if (res) {
         this.router.navigate(['/internships']);
       }
-    }), (error: any) => console.log(error));
-    // this.router.navigate(['/internships']);
+    }), (error: any) => {
+      this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+    });
   }
 
 

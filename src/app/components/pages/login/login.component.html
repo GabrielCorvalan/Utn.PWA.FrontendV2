@@ -3,22 +3,17 @@
     <div class="center-div col-12 col-sm-6 col-md-5">
       <div class="card border" >
         <div class="card-header">
-          <h3 class="text-themecolor">Login</h3>
+          <h3>Login</h3>
         </div>
         <div class="card-body">
           <div class="center-div form-login">
             <form [formGroup]="formGroup" (ngSubmit)="postLogin()">
               <mat-form-field class="col-12">
-                  <input matInput placeholder="Dni" 
-                         formControlName="dni" 
-                         autocomplete="off"
-                         type="number" >
+                  <input matInput placeholder="Dni" formControlName="dni" autocomplete="off" minlength="8" maxlength="8" type="text" (keydown)="onKeyPress($event)">
+                  <mat-error *ngIf="formGroup.get('dni').hasError('maxLength')">Ingrese un dni valido</mat-error>
               </mat-form-field>
               <mat-form-field class="col-12">
-                <input type="password" matInput 
-                        placeholder="Password"
-                        formControlName="password"
-                        autocomplete="off">
+                <input type="password" matInput placeholder="Password" formControlName="password" autocomplete="off">
               </mat-form-field>
               <div class="button-row col-12">
                   <button mat-flat-button color="primary" [disabled]="formGroup.invalid" class="btn btn-block">Login</button>

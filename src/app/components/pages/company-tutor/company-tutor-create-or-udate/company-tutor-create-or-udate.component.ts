@@ -1,8 +1,10 @@
+import { NgxSpinnerService } from 'ngx-spinner';
+import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { ICompanyTutor } from './../../../../intefaces/ICompanyTutor';
 import { CompanyTutorService } from './../company-tutor.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { MatDialog } from '@angular/material';
 import { SearchDialogComponent } from '../../teacher/search-dialog/search-dialog.component';
 import { ICompany } from 'src/app/intefaces/ICompany';
@@ -18,6 +20,8 @@ export class CompanyTutorCreateOrUdateComponent implements OnInit {
   // Variables
   step = true;
   companies: ICompany[];
+  idParam: string;
+  pageTittle = 'Nuevo Tutor';
 
   // FORM
   companyTutorForm = this.fb.group({
@@ -38,12 +42,20 @@ export class CompanyTutorCreateOrUdateComponent implements OnInit {
 
   constructor(public fb: FormBuilder,
               private companyTutorService: CompanyTutorService,
+              private notificationService: NotificationsService,
               private companyService: CompanyService,
+              private spinner: NgxSpinnerService,
+              private route: ActivatedRoute,
               private router: Router,
               private dialog: MatDialog ) {  }
 
   ngOnInit() {
+    this.spinner.show();
     this.getCompanies();
+    this.idParam = this.route.snapshot.params.id;
+    if ( this.idParam ) {
+      this.getTutorById(this.idParam);
+    }
   }
 
   searchTeacherDialog() {
@@ -61,16 +73,54 @@ export class CompanyTutorCreateOrUdateComponent implements OnInit {
     this.companyService.getAllCompanies()
     .subscribe(((res: ICompany[]) => {
       this.companies = res;
-    }), (error: any) => console.log(error));
+    }), (error: any) => {
+      this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+    });
+  }
+
+  getTutorById(id: string): void {
+    this.companyTutorService.getCompanyTutorById(id)
+    .subscribe((tutor: ICompanyTutor) => {
+      this.pageTittle = `Editar datos de ${tutor.names} ${tutor.surnames}`;
+      this.setFormValue(tutor);
+    }, (error: any) => {
+      this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+    });
+  }
+
+  setFormValue(tutor: ICompanyTutor): void {
+    this.companyTutorForm.setValue({
+      names: [tutor.names],
+      surnames: [tutor.surnames],
+      email: [tutor.email],
+      dni: [tutor.dni],
+      cuil: [tutor.cuil],
+      company: [tutor.companyId],
+      address: this.fb.group({
+        streetAddress: [tutor.address.streetAddress],
+        state: [tutor.address.state],
+        city: [tutor.address.city],
+        zipCode: [tutor.address.zipCode],
+        country: [tutor.address.country],
+      })
+    });
   }
 
   onSubmit(): void {
-    this.companyTutorService.createCompanyTutor(this.companyTutorForm.getRawValue())
+    this.spinner.show();
+    const tutor = this.companyTutorForm.getRawValue();
+    tutor.id = this.idParam ? this.idParam : null;
+    this.companyTutorService.createCompanyTutor(tutor)
       .subscribe(((res: boolean) => {
         if (res) {
-          this.router.navigate(['/career']);
+          this.notificationService.create('Muy bien!', 'Tutor creado correctamente.', NotificationType.Success);
+          this.spinner.hide();
+          this.router.navigate(['/company-tutor']);
         }
-      }), (error: any) => console.log(error));
+      }), (error: any) => {
+        this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+        this.spinner.hide();
+      });
   }
 
   nextStep(): void {

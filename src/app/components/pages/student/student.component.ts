@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { StudentService } from './student.service';
 import { IStudent } from 'src/app/intefaces/IStudent';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NotificationType, NotificationsService } from 'angular2-notifications';
 
 @Component({
   selector: 'app-student',
@@ -12,7 +13,8 @@ export class StudentComponent implements OnInit {
 
   students: IStudent[];
   constructor(private studentService: StudentService,
-              private spinner: NgxSpinnerService) { }
+              private spinner: NgxSpinnerService,
+              private notificationService: NotificationsService) { }
 
   ngOnInit() {
     this.spinner.show();
@@ -24,7 +26,9 @@ export class StudentComponent implements OnInit {
       .subscribe((res: IStudent[]) => {
         this.students = res;
         this.spinner.hide();
-      }, (error: any): void => console.log(error));
+      }, (error: any): void => {
+        this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+      });
   }
 
 }
