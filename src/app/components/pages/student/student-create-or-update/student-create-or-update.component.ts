@@ -1,6 +1,6 @@
+import { ITeacher } from './../../../../intefaces/ITeacher';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
-import {Observable} from 'rxjs';
 import { StudentService } from '../student.service';
 import { CareerService } from '../../career/career.service';
 import { ICareer } from 'src/app/intefaces/ICareer';
@@ -11,12 +11,6 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IStudent } from 'src/app/intefaces/IStudent';
 
-export interface State {
-  flag: string;
-  name: string;
-  population: string;
-}
-
 
 @Component({
   selector: 'app-student-create-or-update',
@@ -24,7 +18,6 @@ export interface State {
   styles: []
 })
 export class StudentCreateOrUpdateComponent implements OnInit {
-  filteredStates: Observable<State[]>;
   studentForm = this.fb.group({
     names: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
     surnames: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
@@ -46,6 +39,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   step = true;
   idParam: string;
   pageTittle = 'Nuevo Estudiante';
+  teacherGuideViewValue: string;
 
   constructor(public fb: FormBuilder,
               private studentService: StudentService,
@@ -92,8 +86,9 @@ export class StudentCreateOrUpdateComponent implements OnInit {
         height: '600px'
       });
 
-      dialogRef.afterClosed().subscribe(() => {
-        console.log('se cerro');
+      dialogRef.afterClosed().subscribe((teacherGuide: ITeacher) => {
+        this.studentForm.get('teacherId').setValue(teacherGuide.id);
+        this.teacherGuideViewValue = `${teacherGuide.names} ${teacherGuide.surnames}[${teacherGuide.file}]`;
       });
   }
 

@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { SearchDialogComponent } from './components/pages/teacher/search-dialog/search-dialog.component';
 import { SimpleNotificationsModule } from 'angular2-notifications'; import { NgxSpinnerModule } from 'ngx-spinner';
+import {NgxWebstorageModule} from 'ngx-webstorage';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { SimpleNotificationsModule } from 'angular2-notifications'; import { Ngx
     NgxSpinnerModule,
     HttpClientModule,
     MaterialModule,
+    NgxWebstorageModule.forRoot(),
     LoginModule,
     BrowserAnimationsModule,
     FlexLayoutModule,

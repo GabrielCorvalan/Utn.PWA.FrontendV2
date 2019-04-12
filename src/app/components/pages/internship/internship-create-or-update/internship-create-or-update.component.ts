@@ -1,3 +1,4 @@
+import { IInternship } from './../../../../intefaces/IInternship';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators} from '@angular/forms';
@@ -14,6 +15,7 @@ import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
 import { MatDialog } from '@angular/material';
 import { SearchDialogComponent } from '../../teacher/search-dialog/search-dialog.component';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { SessionStorageService } from 'ngx-webstorage';
 
 const moment = _moment;
 
@@ -49,9 +51,7 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
     endDate: ['', [Validators.required]],
     taskDescription: ['', Validators.required],
     companyId: ['', Validators.required],
-    // companyId: [this.fGroup.controls.company.value ? this.fGroup.controls.company.value.id : null],
     studentId: ['', Validators.required],
-    // studentId: [this.fGroup.controls.student.value ? this.fGroup.controls.student.value.id : null],
     companyTutorId: ['', Validators.required],
     companySignatory: ['', Validators.required],
     salaryWorkAssignment: ['', Validators.required],
@@ -71,16 +71,21 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
                private spinner: NgxSpinnerService,
                private router: Router,
                private dialog: MatDialog,
-               private route: ActivatedRoute ) { }
+               private route: ActivatedRoute,
+               private session: SessionStorageService ) { }
 
   public ngOnInit() {
+    const sessionCreateStudent: IInternship = this.session.retrieve('student');
     const idParam: number = this.route.snapshot.params.id;
-    if ( idParam ) {
+
+    if (sessionCreateStudent) {
+      this.spinner.show();
+      this.setInternshipFormValue(sessionCreateStudent);
+    } else if ( idParam ) {
       this.spinner.show();
       this.intershipService.getInternshipFormById(idParam)
-      .subscribe((res: any) => {
-        this.fGroup.setValue(res);
-        this.spinner.hide();
+      .subscribe((internship: IInternship) => {
+        this.setInternshipFormValue(internship);
       }, (error: any) => {
         console.log(error);
         this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
@@ -106,19 +111,23 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
   }
 
   public searchStudent(searchType: number) {
-    const dialogRef = this.dialog.open(SearchDialogComponent, {
-      width: '80%',
-      height: '80%',
-      data: searchType
-    });
 
-    dialogRef.afterClosed()
-    .subscribe((searchedStudent: IStudent) => {
-      this.studentViewValue = `${searchedStudent.names} ${searchedStudent.surnames}`;
-      this.student = searchedStudent;
-      this.fGroup.get('studentId').setValue(this.student.id);
-      console.log('se cerro');
-    });
+    this.session.store('DATA', {searchType, internship: this.fGroup.getRawValue()});
+
+    this.router.navigate(['/search', ]);
+    // const dialogRef = this.dialog.open(SearchDialogComponent, {
+    //   width: '80%',
+    //   height: '80%',
+    //   data: {searchType, student: this.fGroup.getRawValue()}
+    // });
+
+    // dialogRef.afterClosed()
+    // .subscribe((searchedStudent: IStudent) => {
+    //   this.studentViewValue = `${searchedStudent.names} ${searchedStudent.surnames}`;
+    //   this.student = searchedStudent;
+    //   this.fGroup.get('studentId').setValue(this.student.id);
+    //   console.log('se cerro');
+    // });
   }
 
   public searchCompanyTutor(searchType: number) {
@@ -135,6 +144,22 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
       this.companyTutor = searchedCompanyTutor;
       this.fGroup.get('companyTutorId').setValue(this.companyTutor.id);
     });
+  }
+
+  setInternshipFormValue(internship: IInternship) {
+    this.fGroup.setValue({
+      startDate: [internship.startDate],
+      endDate: [internship.endDate],
+      taskDescription: [internship.taskDescription],
+      companyId: [internship.companyId],
+      studentId: [internship.studentId],
+      companyTutorId: [internship.companyTutorId],
+      companySignatory: [internship.companySignatory],
+      salaryWorkAssignment: [internship.salaryWorkAssignment],
+      workAgreement: [internship.workAgreement],
+      dailyHours: [internship.dailyHours]
+    });
+    this.spinner.hide();
   }
 
   public onSubmit() {

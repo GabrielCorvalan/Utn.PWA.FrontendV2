@@ -5,8 +5,6 @@
 
     <ng-container *ngIf="step; else stepTwo">
 
-    <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
-
       <mat-form-field class="col-6">
         <input matInput placeholder="Name" formControlName="names" autocomplete="off">
         <mat-error *ngIf="teacherForm.get('names').hasError('required')">

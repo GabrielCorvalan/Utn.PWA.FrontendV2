@@ -1,3 +1,4 @@
+import { IInternship } from './../../../../intefaces/IInternship';
 import { IStudent } from './../../../../intefaces/IStudent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ITeacher } from '../../../../intefaces/ITeacher';
@@ -8,6 +9,11 @@ import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
 import { CompanyTutorService } from '../../company-tutor/company-tutor.service';
 import { StudentService } from '../../student/student.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+
+export interface IData {
+  searchType: number;
+  internship: IInternship;
+}
 
 @Component({
   selector: 'app-search-dialog',
@@ -23,12 +29,12 @@ export class SearchDialogComponent implements OnInit {
               private spinner: NgxSpinnerService,
               private notificationService: NotificationsService,
               public dialogRef: MatDialogRef<SearchDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public type: number ) { }
+              @Inject(MAT_DIALOG_DATA) public data: IData ) { }
 
   ngOnInit() {
-    if ( this.type === 1) {
+    if ( this.data.searchType === 1) {
       this.title = 'Estudiantes';
-    } else if (this.type === 2) {
+    } else if (this.data.searchType === 2) {
       this.title = 'Profesores';
     } else {
       this.title = 'Tutores';
@@ -37,9 +43,9 @@ export class SearchDialogComponent implements OnInit {
 
   onClickSearch(filter: string): void {
     this.spinner.show();
-    if ( this.type === 1 ) {
+    if ( this.data.searchType === 1 ) {
       this.searchStudents(filter);
-    } else if ( this.type === 2 ) {
+    } else if ( this.data.searchType === 2 ) {
       this.searchTeachers(filter);
     } else {
       this.searchTutors(filter);

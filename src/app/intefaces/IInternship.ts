@@ -15,6 +15,7 @@ export interface IInternship extends IBase {
     state: string;
     company: ICompany;
     companyTutor: ICompanyTutor;
+    companyTutorId: number;
     student: IStudent;
     studentId: number;
     companyId: number;

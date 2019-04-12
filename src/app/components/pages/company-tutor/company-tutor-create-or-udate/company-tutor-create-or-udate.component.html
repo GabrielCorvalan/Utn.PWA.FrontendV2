@@ -1,11 +1,9 @@
-<h2 class="text-center text-themecolor"> Nuevo Estudiante </h2> <br>
+<h3> {{pageTittle}} </h3> <br>
 
 <form [formGroup]="companyTutorForm" (submit)="onSubmit()">
   <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
 
     <ng-container *ngIf="step; else stepTwo">
-
-    <!-- <h2 class="text-themecolor"> Informacion Escencial </h2> -->
 
       <mat-form-field class="col-6">
         <input matInput placeholder="Name" formControlName="names" autocomplete="off">
