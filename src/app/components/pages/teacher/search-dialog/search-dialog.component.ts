@@ -1,18 +1,23 @@
+import { ActivatedRoute, Router } from '@angular/router';
 import { IInternship } from './../../../../intefaces/IInternship';
 import { IStudent } from './../../../../intefaces/IStudent';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { ITeacher } from '../../../../intefaces/ITeacher';
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TeacherService } from '../teacher.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
 import { CompanyTutorService } from '../../company-tutor/company-tutor.service';
 import { StudentService } from '../../student/student.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
+import { StorageService } from 'ngx-webstorage/lib/core/interfaces/storageService';
+import { SessionStorageService } from 'ngx-webstorage';
 
 export interface IData {
-  searchType: number;
   internship: IInternship;
+  studentViewData: string;
+  companyTutorViewData: string;
+  companyViewData: string;
+  urlToNavigate: string;
 }
 
 @Component({
@@ -23,19 +28,24 @@ export interface IData {
 export class SearchDialogComponent implements OnInit {
   persons: any[];
   title: string;
+  paramId: number;
+  storageData: IData;
   constructor(private teacherService: TeacherService,
               private tutorService: CompanyTutorService,
               private studentService: StudentService,
               private spinner: NgxSpinnerService,
-              private notificationService: NotificationsService,
-              public dialogRef: MatDialogRef<SearchDialogComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: IData ) { }
+              private route: ActivatedRoute,
+              public storage: SessionStorageService,
+              private router: Router,
+              private notificationService: NotificationsService) { }
 
   ngOnInit() {
-    if ( this.data.searchType === 1) {
+    this.storageData = this.storage.retrieve('DATA');
+    this.paramId = this.route.snapshot.params.type;
+    if ( this.paramId === 1) {
       this.title = 'Estudiantes';
-    } else if (this.data.searchType === 2) {
-      this.title = 'Profesores';
+    } else if (this.paramId === 2) {
+      this.title = 'Companias';
     } else {
       this.title = 'Tutores';
     }
@@ -43,9 +53,9 @@ export class SearchDialogComponent implements OnInit {
 
   onClickSearch(filter: string): void {
     this.spinner.show();
-    if ( this.data.searchType === 1 ) {
+    if ( this.paramId === 1 ) {
       this.searchStudents(filter);
-    } else if ( this.data.searchType === 2 ) {
+    } else if ( this.paramId === 2 ) {
       this.searchTeachers(filter);
     } else {
       this.searchTutors(filter);
@@ -53,14 +63,25 @@ export class SearchDialogComponent implements OnInit {
   }
 
   onSelectButton(dni: string) {
-    const person = this.persons.filter(p => p.dni === dni);
-    this.dialogRef.close(person);
+    const person: any = this.persons.filter(p => p.dni === dni);
+    if ( this.paramId === 1 ) {
+      this.storageData.internship.studentId = person.id;
+      this.storageData.studentViewData = `${person.name} ${person.surname}`;
+    } else if ( this.paramId === 2 ) {
+      this.storageData.internship.companyId = person.id;
+      this.storageData.companyViewData = `${person.name}`;
+    } else {
+      this.storageData.internship.companyTutorId = person.id;
+      this.storageData.companyTutorViewData = `${person.name} ${person.surname}`;
+    }
+    this.storage.store('DATA', person);
+    this.router.navigate([this.storageData.urlToNavigate]);
   }
 
   searchTeachers(filter: string) {
     this.teacherService.getTeachersByFilter(filter)
-    .subscribe((res: ITeacher[]) => {
-      this.persons = res;
+    .subscribe((teacher: ITeacher[]) => {
+      this.persons = teacher;
       this.spinner.hide();
       console.log('teachers', this.persons);
     }, (error: any): void => {
@@ -70,11 +91,9 @@ export class SearchDialogComponent implements OnInit {
 
   searchStudents(filter: string) {
     this.studentService.getStudentsByFilter(filter)
-    .subscribe((res: IStudent[]) => {
-      this.persons = res;
+    .subscribe((student: IStudent[]) => {
+      this.persons = student;
       this.spinner.hide();
-      console.log('students', this.persons);
-
     }, (error: any): void => {
       this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
     });
@@ -82,11 +101,9 @@ export class SearchDialogComponent implements OnInit {
 
   searchTutors(filter: string) {
     this.tutorService.getTutorsByFilter(filter)
-    .subscribe((res: ICompanyTutor[]) => {
-      this.persons = res;
+    .subscribe((tutor: ICompanyTutor[]) => {
+      this.persons = tutor;
       this.spinner.hide();
-      console.log('tutors', this.persons);
-
     }, (error: any): void => {
       this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
     });

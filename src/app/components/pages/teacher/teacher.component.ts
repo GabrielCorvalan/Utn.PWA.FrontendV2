@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TeacherService } from './teacher.service';
 import { ITeacher } from 'src/app/intefaces/ITeacher';
 
 @Component({

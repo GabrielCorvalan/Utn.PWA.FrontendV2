@@ -1,17 +1,17 @@
 <h3> Nueva Pasantia </h3>x
 
 <form [formGroup]="fGroup" (ngSubmit)="onSubmit()">
-  <div class="col-12 col-sm-10 col-md-8 col-lg-7 responsive-form">
+  <div class="col-12 col-sm-10 col-mat-8 col-lg-7 responsive-form">
 
     <mat-form-field class="col-12 col-sm-6">
-      <input mdInput placeholder="Estudiante" [value]="studentViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
-      <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchStudent(1)"><mat-icon>search</mat-icon></button>
+      <input matInput placeholder="Estudiante" [value]="studentViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
+      <button matSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchStudent(1)"><mat-icon>search</mat-icon></button>
       <mat-error *ngIf="fGroup.get('studentId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
     <mat-form-field class="col-12 col-sm-6">
-      <input mdInput placeholder="Empresa" [value]="companyViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
-      <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompany(2)"><mat-icon>search</mat-icon></button>
+      <input matInput placeholder="Empresa" [value]="companyViewValue" data-toggle="tooltip" data-placement="bottom" title="Value">
+      <button matSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompany(2)"><mat-icon>search</mat-icon></button>
       <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 
@@ -42,8 +42,8 @@
     </mat-form-field>
 
     <mat-form-field class="col-12 col-sm-6">
-      <input mdInput placeholder="Tutor de la empresa" data-toggle="tooltip" data-placement="bottom" title="Value">
-      <button mdSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompanyTutor(3)"><mat-icon>search</mat-icon></button>
+      <input matInput placeholder="Tutor de la empresa" data-toggle="tooltip" data-placement="bottom" title="Value">
+      <button matSuffix type="button" #searchArticleButton mat-icon-button class="search-item" (click)="searchCompanyTutor(3)"><mat-icon>search</mat-icon></button>
       <mat-error *ngIf="fGroup.get('companyId').hasError('required')"> El campo es requerido </mat-error>
     </mat-form-field>
 

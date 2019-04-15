@@ -1,15 +1,14 @@
-import { ITeacher } from './../../../../intefaces/ITeacher';
+import { IData } from './../../teacher/search-dialog/search-dialog.component';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { StudentService } from '../student.service';
 import { CareerService } from '../../career/career.service';
 import { ICareer } from 'src/app/intefaces/ICareer';
 import { Router, ActivatedRoute } from '@angular/router';
-import { SearchDialogComponent } from '../../teacher/search-dialog/search-dialog.component';
-import { MatDialog } from '@angular/material';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IStudent } from 'src/app/intefaces/IStudent';
+import { SessionStorageService } from 'ngx-webstorage';
 
 
 @Component({
@@ -40,23 +39,32 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   idParam: string;
   pageTittle = 'Nuevo Estudiante';
   teacherGuideViewValue: string;
+  storageData: IData;
+  teacherStgData;
 
   constructor(public fb: FormBuilder,
               private studentService: StudentService,
               private careerService: CareerService,
               private notificationService: NotificationsService,
+              public storage: SessionStorageService,
               private route: ActivatedRoute,
               private spinner: NgxSpinnerService,
-              private router: Router,
-              private dialog: MatDialog ) {  }
+              private router: Router) { }
 
   ngOnInit() {
     this.spinner.show();
     this.getCareers();
-    this.idParam = this.route.snapshot.params.id;
-    if ( this.idParam ) {
-      this.getStudentById(this.idParam);
+    this.storageData = this.storage.retrieve('DATA');
+    this.teacherStgData = this.storage.retrieve('searchTeacherData');
+    if (this.teacherStgData) {
+      this.setFormValue(this.teacherStgData.student);
+    } else {
+      this.idParam = this.route.snapshot.params.id;
+      if ( this.idParam ) {
+        this.getStudentById(this.idParam);
+      }
     }
+    this.spinner.hide();
   }
 
   getCareers(): void {
@@ -81,27 +89,32 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   }
 
   searchTeacherDialog() {
-      const dialogRef = this.dialog.open(SearchDialogComponent, {
-        width: '800px',
-        height: '600px'
-      });
-
-      dialogRef.afterClosed().subscribe((teacherGuide: ITeacher) => {
-        this.studentForm.get('teacherId').setValue(teacherGuide.id);
-        this.teacherGuideViewValue = `${teacherGuide.names} ${teacherGuide.surnames}[${teacherGuide.file}]`;
-      });
+      const searchTeacherData = { student: this.studentForm.getRawValue()}
+      this.storage.store('searchTeacherData', searchTeacherData);
+      this.router.navigate(['search', 4]);
   }
 
   onSubmit(): void {
     this.spinner.show();
     const student: IStudent = this.studentForm.getRawValue();
     student.id = this.idParam ? this.idParam : null;
+    this.createOrUpdateStudent(student);
+  }
+
+  createOrUpdateStudent(student: IStudent) {
     this.studentService.createStudent(student)
-      .subscribe(((res: boolean) => {
-        if (res) {
-          this.notificationService.create('Muy bien!', 'Estudiante creado correctamente.', NotificationType.Success);
-          this.spinner.hide();
-          this.router.navigate(['/career']);
+      .subscribe(((response: any) => {
+        if (response.success) {
+          if ( this.storageData ) {
+            this.storageData.internship.studentId = response.person.id;
+            this.storageData.studentViewData = `${response.person.name} ${response.person.surname}`;
+            this.spinner.hide();
+            this.router.navigate([this.storageData.urlToNavigate]);
+          } else {
+            this.notificationService.create('Muy bien!', 'Estudiante creado correctamente.', NotificationType.Success);
+            this.spinner.hide();
+            this.router.navigate(['/career']);
+          }
         }
       }), (error: any) => {
         console.log(error);

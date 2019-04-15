@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/main.component';
 import { LoginComponent } from './components/pages/login/login.component';
 import { AuthGuard } from './guards/auth.guard';
+import { SearchDialogComponent } from './components/pages/teacher/search-dialog/search-dialog.component';
 
 const routes: Routes = [
   // { path: '', redirectTo: '/internships', pathMatch: 'full' },
@@ -16,6 +17,7 @@ const routes: Routes = [
     { path: 'students', loadChildren: './components/pages/student/student.module#StudentModule' },
     { path: 'users', loadChildren: './components/pages/user/user.module#UserModule' },
     { path: 'company-tutors', loadChildren: './components/pages/company-tutor/company-tutor.module#CompanyTutorModule' },
+    { path: 'search:id', component: SearchDialogComponent }
   ]}
 ];
 

@@ -75,12 +75,15 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
                private session: SessionStorageService ) { }
 
   public ngOnInit() {
-    const sessionCreateStudent: IInternship = this.session.retrieve('student');
+    const sessionData: any = this.session.retrieve('DATA');
     const idParam: number = this.route.snapshot.params.id;
 
-    if (sessionCreateStudent) {
+    if (sessionData) {
       this.spinner.show();
-      this.setInternshipFormValue(sessionCreateStudent);
+      this.setInternshipFormValue(sessionData);
+      this.studentViewValue = sessionData.studentViewValue;
+      this.tutorViewValue = sessionData.tutorViewValue;
+      this.companyViewValue = sessionData.companyViewValue;
     } else if ( idParam ) {
       this.spinner.show();
       this.intershipService.getInternshipFormById(idParam)
@@ -111,39 +114,13 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
   }
 
   public searchStudent(searchType: number) {
-
-    this.session.store('DATA', {searchType, internship: this.fGroup.getRawValue()});
-
-    this.router.navigate(['/search', ]);
-    // const dialogRef = this.dialog.open(SearchDialogComponent, {
-    //   width: '80%',
-    //   height: '80%',
-    //   data: {searchType, student: this.fGroup.getRawValue()}
-    // });
-
-    // dialogRef.afterClosed()
-    // .subscribe((searchedStudent: IStudent) => {
-    //   this.studentViewValue = `${searchedStudent.names} ${searchedStudent.surnames}`;
-    //   this.student = searchedStudent;
-    //   this.fGroup.get('studentId').setValue(this.student.id);
-    //   console.log('se cerro');
-    // });
+    this.session.store('DATA', {internship: this.fGroup.getRawValue()});
+    this.router.navigate(['/search', 2]);
   }
 
-  public searchCompanyTutor(searchType: number) {
-    const dialogRef = this.dialog.open(SearchDialogComponent, {
-      width: '80%',
-      height: '80%',
-      data: searchType
-    });
-
-    dialogRef.afterClosed()
-    .subscribe((searchedCompanyTutor: ICompanyTutor) => {
-      console.log('se cerro', searchedCompanyTutor);
-      this.tutorViewValue = `${searchedCompanyTutor.names} ${searchedCompanyTutor.surnames}`;
-      this.companyTutor = searchedCompanyTutor;
-      this.fGroup.get('companyTutorId').setValue(this.companyTutor.id);
-    });
+  public searchCompanyTutor() {
+    this.session.store('DATA', {internship: this.fGroup.getRawValue()});
+    this.router.navigate(['/search', 3]);
   }
 
   setInternshipFormValue(internship: IInternship) {
@@ -163,6 +140,7 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
   }
 
   public onSubmit() {
+    this.spinner.show();
     this.fGroup.controls.startDate.setValue(this.fGroup.controls.startDate.value.format());
     this.fGroup.controls.endDate.setValue(this.fGroup.controls.endDate.value.format());
     // console.log(this.fGroup.value);
@@ -171,9 +149,11 @@ export class InternshipCreateOrUpdateComponent implements OnInit {
     .subscribe(((res: boolean) => {
       if (res) {
         this.router.navigate(['/internships']);
+        this.spinner.hide();
       }
     }), (error: any) => {
       this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
+      this.spinner.hide();
     });
   }
 
