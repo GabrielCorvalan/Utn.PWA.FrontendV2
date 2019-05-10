@@ -8,7 +8,7 @@ import { AuthGuard } from './guards/auth.guard';
 const routes: Routes = [
   // { path: '', redirectTo: '/internships', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: '', component: MainComponent, canActivate: [ AuthGuard ], children: [
+  { path: '', component: MainComponent, children: [
     { path: 'teachers', loadChildren: './components/pages/teacher/teacher.module#TeacherModule' },
     { path: 'careers', loadChildren: './components/pages/career/career.module#CareerModule' },
     { path: 'companies', loadChildren: './components/pages/company/company.module#CompanyModule' },

@@ -1,16 +1,36 @@
+import { SidenavItemComponent } from './sidenav-item/sidenav-item.component';
+import { MaterialModule } from 'src/app/app-material.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HeaderComponent } from './header/header.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { MainComponent } from '../main.component';
-// import { HeaderComponent } from './header/header.component';
-// import { SidebarComponent } from './sidebar/sidebar.component';
+import { RouterModule } from '@angular/router';
+import { FlexLayoutModule } from '@angular/flex-layout';
+import { SidebarService } from './sidebar/sidebar.service';
+import { AppRoutingModule } from 'src/app/app-routing.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IconSidenavDirective } from './sidebar/icon.sidebar.directive';
 
 @NgModule({
-  // HeaderComponent, SidebarComponent
-  declarations: [  ],
+  declarations: [
+    MainComponent,
+    SidenavItemComponent,
+    SidebarComponent,
+    IconSidenavDirective
+  ],
+  exports: [
+    MainComponent,
+    SidebarComponent,
+    IconSidenavDirective
+  ],
   imports: [
-    CommonModule
-  ]
+    CommonModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    RouterModule,
+    FlexLayoutModule
+  ],
+  providers: [SidebarService]
 })
 export class SharedModule { }
