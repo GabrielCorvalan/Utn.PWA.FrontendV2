@@ -27,15 +27,15 @@ export class SidebarService {
   }
 
   setSidenav() {
-    if (JSON.parse(localStorage.getItem('currentUser')) == null) {
+    // if (JSON.parse(localStorage.getItem('currentUser')) == null) {
       this.sideAll();
-    } else {
-      if (JSON.parse(localStorage.getItem('currentUser')).rol == 6) {
-        const dashboard = this.menu.addItem('Reporte de Ventas', 'shopping_basket', '/sales-report', 1);
-      } else {
-        this.sideAll();
-      }
-    }
+    // } else {
+    //   if (JSON.parse(localStorage.getItem('currentUser')).rol == 6) {
+    //     const dashboard = this.menu.addItem('Reporte de Ventas', 'shopping_basket', '/sales-report', 1);
+    //   } else {
+    //     this.sideAll();
+    //   }
+    // }
   }
 
   resetSidenav() {

@@ -1,3 +1,4 @@
+import { LoginService } from './../../pages/login/login.service';
 import { Component, OnInit, ViewEncapsulation, OnDestroy } from '@angular/core';
 import * as _ from 'lodash';
 import { Router, NavigationEnd } from '@angular/router';
@@ -36,7 +37,8 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   constructor(
     private sidenavService: SidebarService,
-    private router: Router
+    private router: Router,
+    private loginService: LoginService
   ) { }
 
   ngOnInit() {
@@ -64,6 +66,10 @@ export class SidebarComponent implements OnInit, OnDestroy {
 
   isIconSidenav(): boolean {
     return this.sidenavService.isIconSidenav;
+  }
+
+  logout() {
+    this.loginService.logout();
   }
 
   ngOnDestroy() {

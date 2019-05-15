@@ -1,5 +1,6 @@
 @import "./styles/var";
 @import "./styles/theme";
+@import "./styles/tables";
 
 @keyframes pageLoad {
   from {
@@ -68,4 +69,471 @@ button{
   &:focus{
     outline: none;
   }
+}
+
+////////////////////////////////////////////////////////////////////////////
+
+/*TABLE STYLES*/
+.grid-header{
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 5px 0;
+  border-bottom: 2px solid $primary;
+
+  .grid-title{
+    padding: 0 5px 0 0;
+    margin: 0;
+    font-size: 0.8rem;
+    text-align: left;
+    color: $primary;
+    font-weight: bold;
+
+  }
+}
+.grid-content{
+  position: absolute;
+  top: 3rem;
+  overflow: scroll;
+  width: calc(100% - 2rem);
+  max-height: calc(100% - 3rem);
+}
+.grid-item-container{
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0 0 5px 0;
+  border-bottom: 1px solid $light-grey;
+
+  .grid-item{
+    padding: 10px 0;
+    margin: 0;
+    font-size: 0.8rem;
+    text-align: left;
+    color: $dark-grey;
+    .grid-text{
+      float: left;
+      margin: 0.1rem 0 0 0;
+      max-width: calc(100% - 2rem);
+    }
+    .grid-icon{
+      position: relative;
+      float: left;
+      margin-right: 0.5rem;
+    }
+
+  }
+}
+
+
+/*SEARCH COMPONENT*/
+.search-container{
+  border-left: 10px solid $accent;
+  position: relative;
+  float: left;
+  z-index: 2;
+  width: 70%;
+  margin: 15%;
+  padding: 0.5rem 1.5rem;
+  box-sizing: border-box;
+  .search-text {
+    display: block;
+    h1{
+      font-size: 1.5rem;
+    }
+  }
+}
+
+/*Floating buttons*/
+.floating-btn {
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+  width: 3.5rem;
+  button {
+    position: relative;
+    float: left;
+    margin: 5px;
+    width: 3.5rem;
+  }
+  .mat-fab {
+    background-color: $secondary;
+  }
+}
+.floating-add-button{
+  position: fixed;
+  bottom: 2rem;
+  right: 2rem;
+}
+
+/*Card items*/
+.card-item{
+  position: relative;
+  float: left;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0 0 1rem;
+  .card-header{
+    width: 100%;
+    border-bottom: 0.1rem solid lightgrey;
+    margin-bottom: 1rem;
+  }
+  .card-title{
+    font-size: 0.9rem;
+    color: $dark-grey;
+    font-weight: bold;
+    margin: 0.5rem 0;
+  }
+  .card-item-info{
+    position: relative;
+    float: left;
+    margin-bottom: 0.5rem;
+    width: 100%;
+  }
+  .card-info-title{
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: bold;
+    color: $dark-grey;
+    width: 100%;
+    margin-bottom: 0;
+  }
+  .card-info-text{
+    color: $dark-grey;
+    float: left;
+    font-size: 0.9rem;
+    margin-top: 0;
+    margin-bottom: 1rem;
+  }
+  .card-info-button{
+    text-decoration: underline;
+    color: $primary;
+    padding: 0;
+    font-size: 0.9rem;
+    font-family: 'Roboto', sans-serif;
+  }
+  .card-item{
+    width: 100%;
+    margin: 0.5rem 0 0;
+  }
+}
+
+.cards-sum{
+  .card-header{
+    .card-title{
+      color: $accent;
+    }
+  }
+  .card-info-title{
+    color: $accent;
+  }
+  .card-info-text{
+    color: $accent;
+    margin-bottom: 0;
+  }
+}
+
+/*MODALS*/
+.mat-dialog-container{
+  padding: 2rem !important;
+  max-height: 100% !important;
+}
+
+.modal-header{
+  position: relative;
+  float: left;
+  width: 100%;
+  border-bottom: 0.1rem solid $accent;
+  padding-bottom: 0.5rem;
+  .modal-title{
+    color: $accent;
+    font-size: 1rem;
+    font-weight: bold;
+    float: left;
+    margin: 0;
+  }
+
+  .modal-close{
+    cursor: pointer;
+    float: right;
+    .material-icons{
+      color: crimson;
+      font-size: 1.2rem;
+    }
+  }
+}
+
+.modal-content{
+  position: relative;
+  float: left;
+  width: 100%;
+  margin-top: 1rem;
+  overflow: scroll;
+  height: calc(100% - 3rem);
+}
+
+.modal-actions{
+  position: relative;
+  float: left;
+  text-align: center;
+  margin-top: 1rem;
+  width: 100%;
+}
+.modal-section{
+  width: 100%;
+  padding: 2rem 0;
+  h4{
+      color: $accent;
+      font-size: 1rem;
+      margin-top: 25px;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+  }
+  h6{
+      color: $dark-grey;
+      font-size: 0.8rem;
+      margin: 20px 0 0;
+      font-weight: bold;
+      position: relative;
+      float: left;
+  }
+}
+
+/*GENERAL STYLES*/
+.page-container{
+  padding: 0;
+  box-sizing: border-box;
+  position: relative;
+  float: left;
+  width: 100%;
+  margin-top: 1rem;
+  height: calc(100vh - 5rem);
+  overflow: scroll;
+  padding: 0 2rem;
+}
+
+.content-container{
+  box-sizing: border-box;
+}
+h3{
+  color: $primary;
+}
+
+h4 {
+  color: grey;
+  font-size: 16px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  float: left;
+  width: 100%;
+}
+
+.flex-container{
+  position: relative;
+  float: left;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+button{
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  &:focus{
+    outline: none;
+  }
+}
+
+/*MATERIAL OVERRIDE*/
+.mat-mini-fab{
+  transform: scale(0.7);
+}
+.new-input-container{
+  .mat-input-container{
+    padding-top: 0;
+    width: 100%;
+    margin: 0;
+  }
+  .mat-input-element{
+    border: 0.05rem solid $accent-transparency;
+    background: $accent-transparency;
+    border-radius: 6px;
+    padding: 1.2rem 0.5rem 0.4rem;
+    width: 100% !important;
+    box-sizing: border-box;
+  }
+  .mat-focused{
+    .mat-input-element{
+      border: 0.05rem solid $accent;
+    }
+  }
+  .mat-input-infix{
+    padding: 0;
+    border-top: 0;
+    .mat-input-placeholder{
+      top: 2rem !important;
+      left: 0.5rem !important;
+      width: calc(100% - 1rem);
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      font-size: 0.9rem;
+      color: #666666;
+    }
+  }
+  .mat-input-placeholder.mat-float:not(.mat-empty), .mat-focused .mat-input-placeholder.mat-float{
+    transform: translateY(-0.6rem) perspective(100px) translateZ(0.001px) scale(0.75) translateX(0) !important;
+    color: $dark-grey;
+  }
+  .mat-input-underline{
+    color: transparent !important;
+    opacity: 0;
+  }
+  .mat-focused{
+    .mat-input-subscript-wrapper{
+      background-color: transparent;
+      opacity: 0;
+    }
+  }
+  .mat-form-field-underline{
+    color: transparent !important;
+    opacity: 0;
+  }
+  .mat-input-subscript-wrapper{
+    margin-top: 5px !important;
+  }
+  .mat-input-placeholder-wrapper{
+    top: -1rem;
+  }
+  .mat-input-wrapper {
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+  }
+  .mat-input-element:disabled{
+    background: #fafafa;
+    border: 0.05rem dashed grey;
+    box-sizing: border-box;
+    cursor: not-allowed;
+    color: $dark-grey;
+  }
+
+}
+
+.new-icon-input{
+  .mat-input-element{
+    padding-right: 3rem;
+  }
+  .mat-input-suffix{
+    top: 1.9rem;
+    right: 1rem;
+    position: absolute;
+    color: $accent;
+  }
+  .mat-datepicker-toggle{
+    opacity: 0.7;
+  }
+  .mat-input-prefix .mat-datepicker-toggle, .mat-input-prefix .mat-icon, .mat-input-suffix .mat-datepicker-toggle, .mat-input-suffix .mat-icon{
+    width: 0.9em !important;
+  }
+}
+
+.new-checkbox-input{
+  .mat-checkbox{
+    margin-left: 1rem;
+    z-index: 20;
+  }
+  .new-input-container{
+    position: absolute;
+    width: 100%;
+    .mat-input-element{
+      padding-left: 3rem;
+    }
+  }
+  .mat-input-infix .mat-input-placeholder{
+    left: 3rem !important;
+    width: calc(100% - 4rem);
+  }
+}
+
+.new-select-container{
+  position: relative;
+  .mat-select{
+    padding-top: 0;
+    width: 100%;
+    height: 2.9rem;
+    border: 0.05rem solid rgba(217, 197, 224, 0.1);
+    background: rgba(217, 197, 224, 0.1);
+    border-radius: 6px;
+    padding: 1rem 0.5rem 0rem;
+    width: 100% !important;
+    box-sizing: border-box;
+    margin: 1rem 0;
+  }
+  .mat-select-disabled{
+    background: #fafafa;
+    border: 0.05rem dashed grey;
+    box-sizing: border-box;
+    cursor: not-allowed;
+
+  }
+  .mat-select-trigger{
+    display: block !important;
+  }
+  .mat-select-value-text{
+    font-size: 0.9rem;
+    margin-top: -2px;
+  }
+  .mat-select-placeholder{
+    margin-top: -1rem;
+    top: -4px !important;
+    font-size: 0.9rem;
+    color: #666666;
+  }
+  .mat-select-placeholder.mat-floating-placeholder{
+    top: -17px !important;
+    font-size: 0.67rem !important;
+  }
+  .mat-select-underline{
+    background-color: transparent !important;
+    background-image: none !important;
+  }
+  .mat-floating-placeholder{
+    color: $dark-grey;
+    font-size: 0.9rem;
+  }
+  .mat-select:focus:not(.mat-select-disabled).mat-primary .mat-select-underline{
+    background-color: transparent !important;
+  }
+  .mat-select-arrow{
+    color: transparent !important;
+  }
+  .mat-option{
+    font-size: 0.9rem;
+  }
+  .new-select-arrow{
+    position: absolute;
+    right: 1rem;
+    top: 1.7rem;
+    width: 0.7rem;
+    .material-icons{
+      color: $accent;
+    }
+  }
+}
+
+.mat-checkbox{
+  font-size: 0.9rem;
+  color: $dark-grey;
+}
+
+.mat-sidenav-container{
+  background-color: $white !important;
+}
+
+.mat-raised-button{
+  text-transform: uppercase;
+  font-weight: 700;
 }

@@ -15,6 +15,7 @@ export class CompanyService extends DataService {
   }
 
   getAllCompanies(): Observable<ICompany[]> {
+    console.log(this._headers);
     return this.http.get(this._baseUrl + '/company', {headers: this._headers}).pipe(
       map(res => {
         return res;
@@ -31,10 +32,10 @@ export class CompanyService extends DataService {
   }
 
   createCompany(company: ICompany): Observable<boolean> {
-    this._headers.set('Content-Type', 'application/json');    
+    this._headers.set('Content-Type', 'application/json');
     const result = JSON.stringify(company);
     console.log(result);
-    
+
     return this.http.post(this._baseUrl + '/company', result, { headers: this._headers }).pipe(
       map(res => {
         return res;
@@ -56,5 +57,5 @@ export class CompanyService extends DataService {
       }),
       catchError(this.handleError), );
   }
-  
+
 }

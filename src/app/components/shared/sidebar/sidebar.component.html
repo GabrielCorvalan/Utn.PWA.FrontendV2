@@ -12,7 +12,7 @@
     <mat-nav-list fxLayout="column" class="sidenav-list sidenav-toplevel">
       <app-sidenav-item [item]="homeItem"></app-sidenav-item>
       <app-sidenav-item *ngFor="let item of items" [item]="item"></app-sidenav-item>
-      <app-sidenav-item style="height: 10rem" [item]="exitItem"></app-sidenav-item>
+      <app-sidenav-item (click)="logout()"  style="height: 10rem" [item]="exitItem"></app-sidenav-item>
     </mat-nav-list>
   </div>
 </div>
