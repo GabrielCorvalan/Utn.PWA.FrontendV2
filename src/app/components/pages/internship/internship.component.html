@@ -4,7 +4,7 @@
       <mat-card class="card-item" *ngFor="let internship of internships">
         <div class="card-header" fxLayout="row" fxLayoutAlign="space-betwen center">
           <h3 class="card-title" fxFlex>{{internship.student.names}} {{internship.student.surnames}} [{{internship.student.file}}]</h3>
-          <div class="card-actions" fxFlex="2rem">
+          <div class="card-actions" fxLayout="row" fxFlex="4rem">
             <button mat-mini-fab color="primary" mat-tooltip="Editar">
               <mat-icon>edit</mat-icon>
             </button>

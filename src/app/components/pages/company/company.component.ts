@@ -5,7 +5,7 @@ import { CompanyService } from './company.service';
 @Component({
   selector: 'app-company',
   templateUrl: './company.component.html',
-  styles: []
+  styleUrls: ['./company.component.scss']
 })
 export class CompanyComponent implements OnInit {
 
