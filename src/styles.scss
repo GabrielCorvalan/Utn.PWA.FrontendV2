@@ -309,7 +309,7 @@ button{
 
 /*GENERAL STYLES*/
 .page-container {
-  padding: 1rem;
+  padding: 1.5rem;
   height: 100%;
 }
 
@@ -352,7 +352,10 @@ button{
 }
 
 .new-input-container {
-  .mat-input-container {
+  position: relative;
+  float: left;
+  width: 100%;
+  .mat-form-field {
     padding-top: 0;
     width: 100%;
     margin: 0;
@@ -387,7 +390,7 @@ button{
   .mat-form-field-appearance-legacy.mat-form-field-can-float.mat-form-field-should-float .mat-form-field-label,
   .mat-form-field-appearance-legacy.mat-form-field-can-float .mat-input-server:focus + .mat-form-field-label-wrapper .mat-form-field-label {
     top: 2.2rem;
-    font-size: 1.2rem;
+    font-size: 1rem;
   }
   .mat-input-underline {
     color: transparent !important;
@@ -427,16 +430,16 @@ button{
   .mat-input-element {
     padding-right: 3rem;
   }
-  .mat-input-suffix{
+  .mat-form-field-suffix {
     top: 1.9rem;
     right: 1rem;
     position: absolute;
     color: $accent;
   }
-  .mat-datepicker-toggle{
+  .mat-datepicker-toggle {
     opacity: 0.7;
   }
-  .mat-input-prefix .mat-datepicker-toggle, .mat-input-prefix .mat-icon, .mat-input-suffix .mat-datepicker-toggle, .mat-input-suffix .mat-icon{
+  .mat-form-field-prefix .mat-datepicker-toggle, .mat-form-field-prefix .mat-icon, .mat-form-field-suffix .mat-datepicker-toggle, .mat-form-field-suffix .mat-icon{
     width: 0.9em !important;
   }
 }
