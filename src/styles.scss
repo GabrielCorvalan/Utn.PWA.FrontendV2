@@ -73,8 +73,10 @@ button{
 
 ////////////////////////////////////////////////////////////////////////////
 
-/*TABLE STYLES*/
-.grid-header{
+// /*TABLE STYLES*/
+.grid-header {
+  display: flex;
+  justify-content: space-around;
   position: relative;
   float: left;
   width: 100%;
@@ -82,7 +84,7 @@ button{
   padding: 0 0 5px 0;
   border-bottom: 2px solid $primary;
 
-  .grid-title{
+  .grid-title {
     padding: 0 5px 0 0;
     margin: 0;
     font-size: 0.8rem;
@@ -92,22 +94,24 @@ button{
 
   }
 }
-.grid-content{
-  position: absolute;
-  top: 3rem;
-  overflow: scroll;
-  width: calc(100% - 2rem);
-  max-height: calc(100% - 3rem);
+
+.grid-content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
 }
-.grid-item-container{
+.grid-item-container {
   position: relative;
   float: left;
   width: 100%;
   margin: 0;
   padding: 0 0 5px 0;
   border-bottom: 1px solid $light-grey;
-
-  .grid-item{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  .grid-item {
     padding: 10px 0;
     margin: 0;
     font-size: 0.8rem;
@@ -278,6 +282,7 @@ button{
   margin-top: 1rem;
   overflow: scroll;
   height: calc(100% - 3rem);
+  border: none;
 }
 
 .modal-actions{

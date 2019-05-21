@@ -16,6 +16,7 @@ export class TeacherSearchDialogComponent implements OnInit {
   teachers: ITeacher[];
   tutors: ICompanyTutor[];
   students: IStudent[];
+  items = [];
   constructor(private teacherService: TeacherService,
               private tutorService: CompanyTutorService,
               private studentService: StudentService,
@@ -23,6 +24,9 @@ export class TeacherSearchDialogComponent implements OnInit {
               @Inject(MAT_DIALOG_DATA) public type: number ) { }
 
   ngOnInit() {
+    for (let i = 0; i < 100; i++) {
+      this.items.push({id: 123123, name: 'CORVALAN GABRIEL', numero: 40475304, cuil: 235345435});
+    }
   }
 
   onClickSearch(filter: string): void {
