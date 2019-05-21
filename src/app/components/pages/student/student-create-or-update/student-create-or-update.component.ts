@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
 import {Observable} from 'rxjs';
-import {map, startWith} from 'rxjs/operators';
 import { StudentService } from '../student.service';
 import { CareerService } from '../../career/career.service';
 import { ICareer } from 'src/app/intefaces/ICareer';
@@ -25,7 +24,24 @@ export class StudentCreateOrUpdateComponent implements OnInit {
 
   careers: ICareer[];
   filteredStates: Observable<State[]>;
-  studentForm: FormGroup;
+
+  studentForm =  this.fb.group({
+    names: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
+    surnames: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
+    email: ['', [Validators.required, Validators.email]],
+    dni: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
+    cuil: ['', [Validators.required, Validators.pattern('[0-9]{11}')]],
+    career: ['', Validators.required],
+    mentor: ['', Validators.required],
+    address: this.fb.group({
+      streetAddress: ['', Validators.required],
+      state: ['', Validators.required],
+      city: ['', Validators.required],
+      zipCode: ['', Validators.required],
+      country: ['', Validators.required],
+    })
+  });
+
   step = true;
 
   constructor(public fb: FormBuilder,
@@ -36,7 +52,6 @@ export class StudentCreateOrUpdateComponent implements OnInit {
 
   ngOnInit() {
     this.GetCareers();
-    this.onLoad();
   }
 
   GetCareers(): void {
@@ -44,27 +59,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
       .subscribe((res: ICareer[]) => {
           this.careers = res;
           console.log('careers', this.careers);
-
       }, (error: any): void => console.log(error));
-  }
-
-  private onLoad(): void {
-    this.studentForm = this.fb.group({
-      names: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
-      surnames: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
-      email: ['', [Validators.required, Validators.email]],
-      dni: ['', [Validators.required, Validators.pattern('[0-9]{8}')]],
-      cuil: ['', [Validators.required, Validators.pattern('[0-9]{11}')]],
-      career: ['', Validators.required],
-      mentor: ['', Validators.required],
-      address: this.fb.group({
-        streetAddress: ['', Validators.required],
-        state: ['', Validators.required],
-        city: ['', Validators.required],
-        zipCode: ['', Validators.required],
-        country: ['', Validators.required],
-      })
-    });
   }
 
   searchTeacherDialog() {
