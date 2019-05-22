@@ -9,7 +9,6 @@ import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
 import { CompanyTutorService } from '../../company-tutor/company-tutor.service';
 import { StudentService } from '../../student/student.service';
 import { NotificationsService, NotificationType } from 'angular2-notifications';
-import { StorageService } from 'ngx-webstorage/lib/core/interfaces/storageService';
 import { SessionStorageService } from 'ngx-webstorage';
 
 export interface IData {
@@ -29,22 +28,23 @@ export class SearchDialogComponent implements OnInit {
   persons: any[];
   title: string;
   paramId: number;
-  storageData: IData;
-  constructor(private teacherService: TeacherService,
-              private tutorService: CompanyTutorService,
-              private studentService: StudentService,
-              private spinner: NgxSpinnerService,
-              private route: ActivatedRoute,
-              public storage: SessionStorageService,
-              private router: Router,
-              private notificationService: NotificationsService) { }
+  storageData: any;
+  constructor (
+    private teacherService: TeacherService,
+    private tutorService: CompanyTutorService,
+    private studentService: StudentService,
+    private spinner: NgxSpinnerService,
+    private route: ActivatedRoute,
+    public storage: SessionStorageService,
+    private router: Router,
+    private notificationService: NotificationsService) { }
 
   ngOnInit() {
     this.storageData = this.storage.retrieve('DATA');
     this.paramId = this.route.snapshot.params.type;
     if ( this.paramId === 1) {
       this.title = 'Estudiantes';
-    } else if (this.paramId === 2) {
+    } else if (this.paramId === 4) {
       this.title = 'Companias';
     } else {
       this.title = 'Tutores';
@@ -55,21 +55,20 @@ export class SearchDialogComponent implements OnInit {
     this.spinner.show();
     if ( this.paramId === 1 ) {
       this.searchStudents(filter);
-    } else if ( this.paramId === 2 ) {
+    } else if ( this.paramId === 4 ) {
       this.searchTeachers(filter);
     } else {
       this.searchTutors(filter);
     }
   }
 
-  onSelectButton(dni: string) {
-    const person: any = this.persons.filter(p => p.dni === dni);
+  onSelectButton(person: any) {
     if ( this.paramId === 1 ) {
       this.storageData.internship.studentId = person.id;
       this.storageData.studentViewData = `${person.name} ${person.surname}`;
-    } else if ( this.paramId === 2 ) {
-      this.storageData.internship.companyId = person.id;
-      this.storageData.companyViewData = `${person.name}`;
+    } else if ( this.paramId === 4 ) {
+      this.storageData.student.mentor.id = person.id;
+      this.storageData.mentorViewData = `${person.name} ${person.surname}`;
     } else {
       this.storageData.internship.companyTutorId = person.id;
       this.storageData.companyTutorViewData = `${person.name} ${person.surname}`;

@@ -3,8 +3,8 @@ import {MatInputModule} from '@angular/material/input'; import {MatFormFieldModu
 import {MatIconModule} from '@angular/material/icon'; import {MatSelectModule} from '@angular/material/select';
 import {MatAutocompleteModule} from '@angular/material/autocomplete'; import {MatSlideToggleModule} from '@angular/material/slide-toggle';
 import {MatRadioModule } from '@angular/material/radio'; import {MatDatepickerModule} from '@angular/material/datepicker';
-import {MatNativeDateModule} from '@angular/material/core'; import {MatDialogModule} from '@angular/material/dialog';
-import { MatCardModule, MatMenuModule, MatDividerModule, MatToolbarModule, MatSidenavModule } from '@angular/material';
+import {MatNativeDateModule, MatRippleModule} from '@angular/material/core'; import {MatDialogModule} from '@angular/material/dialog';
+import { MatCardModule, MatMenuModule, MatDividerModule, MatToolbarModule, MatSidenavModule, MatListModule } from '@angular/material';
 
 @NgModule({
   imports: [ MatButtonModule, MatInputModule,
@@ -12,14 +12,16 @@ import { MatCardModule, MatMenuModule, MatDividerModule, MatToolbarModule, MatSi
              MatSelectModule, MatAutocompleteModule,
              MatSlideToggleModule, MatNativeDateModule,
              MatRadioModule, MatDatepickerModule, MatDialogModule,
-             MatCardModule, MatMenuModule, MatDividerModule, MatIconModule,
+             MatCardModule, MatMenuModule, MatDividerModule,
+             MatIconModule, MatListModule, MatRippleModule,
              MatToolbarModule, MatSidenavModule ],
   exports: [ MatButtonModule, MatInputModule,
              MatFormFieldModule, MatIconModule,
              MatSelectModule, MatAutocompleteModule,
              MatSlideToggleModule, MatNativeDateModule,
              MatRadioModule, MatDatepickerModule, MatDialogModule,
-             MatCardModule, MatMenuModule, MatDividerModule, MatIconModule,
+             MatCardModule, MatMenuModule, MatDividerModule,
+             MatIconModule, MatListModule, MatRippleModule,
              MatToolbarModule, MatSidenavModule ]
 })
 

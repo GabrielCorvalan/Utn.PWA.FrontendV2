@@ -14,6 +14,7 @@ $light-grey: #ccc;
 $dark-grey: #4d4d4d;
 $bg-grey: #f4f4f4;
 
+
 $border-thin: 0.05rem solid $light-grey;
 $border-thick: 0.1rem solid $dark-grey;
 
@@ -21,35 +22,39 @@ $search-box-small: 7rem;
 $search-box-big: 12rem;
 
 // Sidenav
+
 $darker-blue: #272B35;
 
 $dark-blue: #2B303B;
-$dark-blue__hover: darken($dark-blue, 2);
-$dark-blue__active: $dark-blue__hover;
 
-$dark-blue__level1: darken($dark-blue, 2.5);
-$dark-blue__level1__hover: darken($dark-blue__level1, 1.5);
-$dark-blue__level1__active: $dark-blue__level1__hover;
 
-$dark-blue__level2: darken($dark-blue__level1, 2.5);
-$dark-blue__level2__hover: darken($dark-blue__level2, 1.5);
-$dark-blue__level2__active: $dark-blue__level2__hover;
+$light-blue: #5493D2;
+$light-blue__hover: darken($light-blue, 2);
+$light-blue__active: $light-blue__hover;
 
-$dark-blue__level3: darken($dark-blue__level2, 2.5);
-$dark-blue__level3__hover: darken($dark-blue__level3, 1.5);
-$dark-blue__level3__active: $dark-blue__level3__hover;
+$light-blue__level1: darken($light-blue, 2.5);
+$light-blue__level1__hover: darken($light-blue__level1, 1.5);
+$light-blue__level1__active: $light-blue__level1__hover;
 
-$dark-blue__level4: darken($dark-blue__level3, 2.5);
-$dark-blue__level4__hover: darken($dark-blue__level4, 1.5);
-$dark-blue__level4__active: $dark-blue__level4__hover;
+$light-blue__level2: darken($light-blue__level1, 2.5);
+$light-blue__level2__hover: darken($light-blue__level2, 1.5);
+$light-blue__level2__active: $light-blue__level2__hover;
 
-$dark-blue__level5: darken($dark-blue__level4, 2.5);
-$dark-blue__level5__hover: darken($dark-blue__level5, 1.5);
-$dark-blue__level5__active: $dark-blue__level5__hover;
+$light-blue__level3: darken($light-blue__level2, 2.5);
+$light-blue__level3__hover: darken($light-blue__level3, 1.5);
+$light-blue__level3__active: $light-blue__level3__hover;
 
-$dark-blue__level6: darken($dark-blue__level5, 2.5);
-$dark-blue__level6__hover: darken($dark-blue__level6, 1.5);
-$dark-blue__level6__active: $dark-blue__level6__hover;
+$light-blue__level4: darken($light-blue__level3, 2.5);
+$light-blue__level4__hover: darken($light-blue__level4, 1.5);
+$light-blue__level4__active: $light-blue__level4__hover;
+
+$light-blue__level5: darken($light-blue__level4, 2.5);
+$light-blue__level5__hover: darken($light-blue__level5, 1.5);
+$light-blue__level5__active: $light-blue__level5__hover;
+
+$light-blue__level6: darken($light-blue__level5, 2.5);
+$light-blue__level6__hover: darken($light-blue__level6, 1.5);
+$light-blue__level6__active: $light-blue__level6__hover;
 
 $padding__sidenav-item__level2: 10px;
 $padding__sidenav-item__level3: 20px;
@@ -57,7 +62,9 @@ $padding__sidenav-item__level4: 30px;
 $padding__sidenav-item__level5: 40px;
 $padding__sidenav-item__level6: 40px;
 
-$width__sidenav: 196px;
+$max__width__sidenav: 297px;
+$min__width__sidenav: 287px;
+$height__footer: 160px;
 
 $padding-left-right__sidenav-list__md-list-item: 24px;
 $margin-left__sidenav-list__item-name: $padding-left-right__sidenav-list__md-list-item;

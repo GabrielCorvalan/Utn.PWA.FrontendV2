@@ -1,6 +1,7 @@
 import { IAddress } from './IAddress';
 import { IBase } from './IBase';
 import { ICareer } from './ICareer';
+import { ITeacher } from './ITeacher';
 
 export interface IStudent extends IBase {
     names: string;
@@ -16,7 +17,7 @@ export interface IStudent extends IBase {
     email: string;
 
     career: ICareer;
-    // Mentor: ITeacher;
+    mentor: ITeacher;
     // Interships: IIntership;
 }
 

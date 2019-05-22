@@ -9,15 +9,14 @@ import { SearchDialogComponent } from './components/pages/teacher/search-dialog/
 const routes: Routes = [
   // { path: '', redirectTo: '/internships', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
-  { path: '', component: MainComponent, canActivate: [ AuthGuard ], children: [
+  { path: '', component: MainComponent, children: [
     { path: 'teachers', loadChildren: './components/pages/teacher/teacher.module#TeacherModule' },
     { path: 'careers', loadChildren: './components/pages/career/career.module#CareerModule' },
     { path: 'companies', loadChildren: './components/pages/company/company.module#CompanyModule' },
     { path: 'internships', loadChildren: './components/pages/internship/internship.module#InternshipModule' },
     { path: 'students', loadChildren: './components/pages/student/student.module#StudentModule' },
     { path: 'users', loadChildren: './components/pages/user/user.module#UserModule' },
-    { path: 'company-tutors', loadChildren: './components/pages/company-tutor/company-tutor.module#CompanyTutorModule' },
-    { path: 'search:id', component: SearchDialogComponent }
+    { path: 'company-tutors', loadChildren: './components/pages/company-tutor/company-tutor.module#CompanyTutorModule' }
   ]}
 ];
 

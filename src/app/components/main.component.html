@@ -1,20 +1,27 @@
-<div id="main-wrapper">
-
-  <app-header></app-header>
-
-    <!-- <app-sidebar></app-sidebar> -->
-
-  <div class="main-container" #scrollContainer>
-
-    <simple-notifications></simple-notifications>
-    <ngx-spinner bdColor="rgba(51,51,51,0.8)"
-                 size="medium"
-                 color="#fff"
-                 type="ball-scale-multiple">
-        <p style="font-size: 20px; color: white">Cargando...</p>
-    </ngx-spinner>
-    <router-outlet></router-outlet>
-
+<mat-toolbar class="main-toolbar">
+  <div fxLayout="row" fxLayoutGap="1rem">
+      <button (click)="openCloseSidenav($event)">
+        <mat-icon>{{menu}}</mat-icon>
+      </button>
+    <img src="./../../assets/">
+    <span fxFlex></span>
   </div>
+</mat-toolbar>
+<mat-sidenav-container class="all-wrap">
+  <mat-sidenav class="sidenav" [mode]="sidenavMode" appMsIconSidenav #sidenav>
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
+  <mat-sidenav-content class="page-wrap">
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
 
-</div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="medium"
+  color="#fff"
+  type="ball-scale-multiple">
+ <p style="font-size: 20px; color: white">Loading...</p>
+</ngx-spinner>

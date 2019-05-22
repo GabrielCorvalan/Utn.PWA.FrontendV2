@@ -1,0 +1,84 @@
+@import "../../../../styles/var";
+
+mat-toolbar.mat-toolbar.sidenav-toolbar {
+  background: $white
+}
+
+.sidenav-container {
+  height: 100%;
+}
+
+mat-sidenav {
+  -webkit-box-shadow: 3px 1px 10px -5px rgba(0, 0, 0, 0.27);
+  -moz-box-shadow: 3px 1px 10px -5px rgba(0, 0, 0, 0.27);
+  box-shadow: 3px 1px 10px -5px rgba(0, 0, 0, 0.27);
+}
+
+@media screen and(min-width: 480px) {
+  .sidenav-scrollbar-container {
+    height: 100%;
+    margin-top: 40%;
+  }
+}
+
+.cdk-focus-trap-content,
+mat-sidenav {
+  overflow-y: hidden !important;
+  overflow-x: hidden;
+}
+
+.icon-sidenav-toggle {
+  color: $light-grey;
+  transition: transform 0.25s;
+  margin-left: 5px;
+
+  &.rotate {
+    transform: rotate(45deg);
+  }
+}
+
+.logotipo {
+  text-align: center;
+  margin-left: -3px;
+  vertical-align: text-top;
+}
+
+.iso {
+  padding: 0px;
+  margin: 5px 0 5px -8px;
+}
+
+.logo {
+  margin: 0 0 8px 17px;
+}
+
+.mat-toolbar .mat-toolbar-row {
+  padding: 0 4% !important;
+}
+
+.logo-menu {
+  width: 123.5px;
+  height: 27.65px;
+  padding-top: 16%;
+  padding-right: 2%;
+  padding-left: 10%;
+}
+
+@media screen and(max-width: 599px) {
+  .mat-toolbar .mat-toolbar-row {
+    padding: 0 !important;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  mat-toolbar.mat-toolbar.sidenav-toolbar {
+    display: none;
+  }
+
+}
+
+@media screen and (min-width: 960px) {
+  mat-toolbar.mat-toolbar.sidenav-toolbar {
+    display: inline-flex;
+  }
+}

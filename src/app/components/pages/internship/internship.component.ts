@@ -26,6 +26,7 @@ export class InternshipComponent implements OnInit {
     this.internshipService.getAllInternships()
       .subscribe((res: IInternship[]) => {
           this.internships = res;
+          console.log(res);
           this.spinner.hide();
       }, (error: any): void => console.log(error));
   }

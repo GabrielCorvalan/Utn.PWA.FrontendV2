@@ -22,6 +22,6 @@ import { HttpClientModule } from '@angular/common/http';
     CareerRoutingModule,
     ReactiveFormsModule
   ],
-  providers: [ CareerService ]  
+  providers: [ CareerService ]
 })
 export class CareerModule { }

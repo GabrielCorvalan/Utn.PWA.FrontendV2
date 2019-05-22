@@ -1,0 +1,12 @@
+@import "../../../../styles.scss";
+//Cambiar variable search-box-small para búsqueda con una línea de campos o search-box-big para búsqueda con dos líneas de campos
+
+//Content
+.content-container{
+  margin-top: $search-box-small;
+}
+
+//No results image margin
+.no-results-container{
+  margin-top: $search-box-small;
+}

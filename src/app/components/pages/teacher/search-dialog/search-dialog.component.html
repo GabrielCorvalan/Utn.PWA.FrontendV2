@@ -11,24 +11,26 @@
       </mat-form-field>
     </div>
   </div>
-  <div class="flex-container">
+  <!-- <div class="flex-container"> -->
     <!-- <loading dialog="true" name="dialog"></loading> -->
     <div class="grid-container">
-      <div class="grid-header">
-        <p class="grid-title" fxFlex>ID</p>
-        <p class="grid-title" fxFlex>Nombre Completo</p>
-        <p class="grid-title" fxFlex>Dni</p>
-        <p class="grid-title" fxFlex>Cuil</p>
-        <!-- <p class="grid-title" fxFlex="6rem">Precio</p>
-        <p class="grid-title" fxFlex="16rem">Prox. Fecha Venc</p> -->
+      <div class="grid-header" >
+        <p class="grid-title">ID</p>
+        <p class="grid-title">Nombre Completo</p>
+        <p class="grid-title">Dni</p>
+        <p class="grid-title">Cuil</p>
+        <p class="grid-title">Action</p>
+        <!-- <p class="grid-title"="6rem">Precio</p>
+        <p class="grid-title"="16rem">Prox. Fecha Venc</p> -->
       </div>
       <div class="grid-content">
-        <div class="grid-item-container" *ngFor="let person of persons">
-          <p class="grid-item" fxFlex>{{ person.file }}</p>
-          <p class="grid-item" fxFlex>{{ person.names }} {{person.surnames}}</p>
-          <p class="grid-item" fxFlex>{{ person.dni }}</p>
-          <p class="grid-item" fxFlex>{{ person.cuil }}</p>
-          <div class="grid-item" fxFlex="3rem">
+        <!--*ngFor="let item of items" -->
+        <div class="grid-item-container">
+          <p class="grid-item">2222</p>
+          <p class="grid-item">Corvalan Gabriel Gonzalo</p>
+          <p class="grid-item">40475304</p>
+          <p class="grid-item">20404753046</p>
+          <div class="grid-item">
             <button mat-mini-fab color="accent">
               <mat-icon>note_add</mat-icon>
             </button>
@@ -36,5 +38,5 @@
         </div>
       </div>
     </div>
-  </div>
+  <!-- </div> -->
 </div>

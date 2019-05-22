@@ -9,11 +9,13 @@ import { StudentService } from './student.service';
 import { StudentRoutingModule } from './student-routing.module';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { SearchDialogComponent } from '../teacher/search-dialog/search-dialog.component';
 
 @NgModule({
   declarations: [
     StudentComponent,
-    StudentCreateOrUpdateComponent
+    StudentCreateOrUpdateComponent,
+    SearchDialogComponent
   ],
   imports: [
     CommonModule,

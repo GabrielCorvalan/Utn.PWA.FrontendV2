@@ -1,6 +1,7 @@
 import { IData } from './../../teacher/search-dialog/search-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import {FormBuilder, Validators} from '@angular/forms';
+import {Observable} from 'rxjs';
 import { StudentService } from '../student.service';
 import { CareerService } from '../../career/career.service';
 import { ICareer } from 'src/app/intefaces/ICareer';
@@ -17,6 +18,7 @@ import { SessionStorageService } from 'ngx-webstorage';
   styles: []
 })
 export class StudentCreateOrUpdateComponent implements OnInit {
+
   studentForm = this.fb.group({
     names: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
     surnames: ['', [Validators.required, Validators.pattern('[A-Za-z ]{0,30}')]],
@@ -35,6 +37,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   });
 
   careers: ICareer[];
+
   step = true;
   idParam: string;
   pageTittle = 'Nuevo Estudiante';
@@ -71,9 +74,8 @@ export class StudentCreateOrUpdateComponent implements OnInit {
     this.careerService.getCareers()
       .subscribe((res: ICareer[]) => {
         this.careers = res;
-        console.log('careers', this.careers);
-        this.spinner.hide();
       }, (error: any): void => {
+        this.spinner.hide();
         this.notificationService.create('Ups... Hubo un error', error, NotificationType.Error);
       });
   }
@@ -91,7 +93,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   searchTeacherDialog() {
       const searchTeacherData = { student: this.studentForm.getRawValue()}
       this.storage.store('searchTeacherData', searchTeacherData);
-      this.router.navigate(['search', 4]);
+      this.router.navigate(['/search', 4]);
   }
 
   onSubmit(): void {

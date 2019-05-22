@@ -4,7 +4,7 @@
     <mat-card class="card-item" *ngFor="let companyTutor of companyTutors">
       <div class="card-header" fxLayout="row" fxLayoutAlign="space-betwen center">
         <h3 class="card-title" fxFlex>{{companyTutor.names}} {{companyTutor.surnames}}</h3>
-        <div class="card-actions" fxFlex="6rem">
+        <div class="card-actions" fxFlex="10rem">
           <button mat-mini-fab color="primary" mat-tooltip="Editar"><mat-icon>edit</mat-icon></button>
           <button mat-mini-fab color="accent" [matMenuTriggerFor]="menu"><mat-icon>expand_more</mat-icon></button>
         </div>
