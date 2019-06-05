@@ -5,8 +5,7 @@ import { HttpHeaders } from '@angular/common/http';
 @Injectable()
 export class DataService {
 
-    _baseUrl = 'https://192.168.0.116:44353/api'; // ONMAC
-    // _baseUrl = 'https://localhost:44353/api'; ONWINDOWS
+    _baseUrl = 'https://localhost:5001/api';
     public _headers: HttpHeaders;
     constructor() {
         let token = localStorage.getItem('currentUser');

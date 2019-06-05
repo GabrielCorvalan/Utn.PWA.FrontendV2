@@ -102,7 +102,7 @@
       <div class="flex-container">
         <div class="new-input-container new-icon-input">
           <mat-form-field>
-            <input matInput placeholder="Tutor" aria-label="State">
+            <input matInput placeholder="Tutor" [formControl]="tutorViewData" aria-label="State">
             <button matSuffix (click)="searchTeacherDialog()"><mat-icon>search</mat-icon> </button>
           </mat-form-field>
         </div>

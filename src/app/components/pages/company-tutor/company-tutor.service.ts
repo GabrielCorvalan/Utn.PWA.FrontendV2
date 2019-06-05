@@ -1,69 +1,60 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { map, catchError } from 'rxjs/operators';
-import { DataService } from 'src/app/DataService';
 import { ICompanyTutor } from 'src/app/intefaces/ICompanyTutor';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CompanyTutorService extends DataService {
+export class CompanyTutorService {
 
-  constructor(private http: HttpClient) {
-    super();
-  }
+  constructor(private http: HttpClient) {}
 
   getAllCompanyTutors(): Observable<ICompanyTutor[]> {
-    return this.http.get(this._baseUrl + '/companyTutor', {headers: this._headers}).pipe(
-      map(res => {
+    return this.http.get(environment.url + '/companyTutor').pipe(
+      map((res: ICompanyTutor[]) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   getCompanyTutorById(id: string): Observable<ICompanyTutor> {
-    return this.http.get(this._baseUrl + '/companyTutor/' + id).pipe(
+    return this.http.get(environment.url + '/companyTutor/' + id).pipe(
       map((res: ICompanyTutor) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   createCompanyTutor(companyTutor: ICompanyTutor): Observable<boolean> {
-    this._headers.set('Content-Type', 'application/json');
     const result = JSON.stringify(companyTutor);
     console.log(result);
 
-    return this.http.post(this._baseUrl + '/companyTutor', result, { headers: this._headers }).pipe(
-      map(res => {
+    return this.http.post(environment.url + '/companyTutor', result).pipe(
+      map((res: boolean) => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 
   deleteCompanyTutor(id: number): Observable<boolean> {
-    return this.http.delete(this._baseUrl + '/companyTutor/' + id).pipe(
+    return this.http.delete(environment.url + '/companyTutor/' + id).pipe(
       map((res: boolean) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   dniValidate(dni: number): Observable<boolean> {
-    return this.http.get(this._baseUrl + '/companyTutor/validateDni/' + dni).pipe(
+    return this.http.get(environment.url + '/companyTutor/validateDni/' + dni).pipe(
       map((res: boolean) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   getTutorsByFilter(filter: string) {
     const parameters = new HttpParams().set('filter', filter);
-    this._headers.set('Content-Type', 'application/json');
-    return this.http.get(this._baseUrl + '/companyTutor/ByFilter', {params: parameters, headers: this._headers}).pipe(
+    return this.http.get(environment.url + '/companyTutor/ByFilter', {params: parameters}).pipe(
       map((res: ICompanyTutor[]) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 }

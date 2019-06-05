@@ -1,70 +1,60 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
-import { DataService } from 'src/app/DataService';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { IStudent } from 'src/app/intefaces/IStudent';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class StudentService extends DataService {
+export class StudentService {
 
-  constructor(private http: HttpClient) {
-    super();
-  }
+  constructor(private http: HttpClient) {}
 
   getAllStudents(): Observable<IStudent[]> {
-    return this.http.get(this._baseUrl + '/student', {headers: this._headers}).pipe(
-      map(res => {
+    return this.http.get(environment.url + '/student').pipe(
+      map((res: IStudent[]) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   getStudentById(id: string): Observable<IStudent> {
-    return this.http.get(this._baseUrl + '/student/' + id).pipe(
+    return this.http.get(environment.url + '/student/' + id).pipe(
       map((res: IStudent) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   createStudent(student: IStudent): Observable<boolean> {
-    this._headers.set('Content-Type', 'application/json');
     const result = JSON.stringify(student);
-    console.log(result);
 
-    return this.http.post(this._baseUrl + '/student', result, { headers: this._headers }).pipe(
-      map(res => {
+    return this.http.post(environment.url + '/student', result).pipe(
+      map((res: boolean) => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 
   deleteStudent(id: number): Observable<boolean> {
-    return this.http.delete(this._baseUrl + '/student/' + id).pipe(
+    return this.http.delete(environment.url + '/student/' + id).pipe(
       map((res: boolean) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   dniValidate(dni: number): Observable<boolean> {
-    return this.http.get(this._baseUrl + '/student/validateDni/' + dni).pipe(
+    return this.http.get(environment.url + '/student/validateDni/' + dni).pipe(
       map((res: boolean) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
   getStudentsByFilter(filter: string) {
     const parameters = new HttpParams().set('filter', filter);
-    this._headers.set('Content-Type', 'application/json');
-    return this.http.get(this._baseUrl + '/student/ByFilter', {params: parameters, headers: this._headers}).pipe(
+    return this.http.get(environment.url + '/student/ByFilter', {params: parameters}).pipe(
       map((res: IStudent[]) => {
         return res;
-      }),
-      catchError(this.handleError), );
+      }));
   }
 
 }

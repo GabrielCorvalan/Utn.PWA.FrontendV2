@@ -1,6 +1,6 @@
 import { IData } from './../../teacher/search-dialog/search-dialog.component';
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, Validators, FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import { StudentService } from '../student.service';
 import { CareerService } from '../../career/career.service';
@@ -10,7 +10,17 @@ import { NotificationsService, NotificationType } from 'angular2-notifications';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { IStudent } from 'src/app/intefaces/IStudent';
 import { SessionStorageService } from 'ngx-webstorage';
+import { IInternship } from 'src/app/intefaces/IInternship';
 
+export interface IData {
+  internship: IInternship;
+  student: IStudent;
+  studentViewData: string;
+  companyTutorViewData: string;
+  companyViewData: string;
+  mentorViewData: string;
+  urlToNavigate: string;
+}
 
 @Component({
   selector: 'app-student-create-or-update',
@@ -37,6 +47,7 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   });
 
   careers: ICareer[];
+  tutorViewData = new FormControl('');
 
   step = true;
   idParam: string;
@@ -58,9 +69,9 @@ export class StudentCreateOrUpdateComponent implements OnInit {
     this.spinner.show();
     this.getCareers();
     this.storageData = this.storage.retrieve('DATA');
-    this.teacherStgData = this.storage.retrieve('searchTeacherData');
-    if (this.teacherStgData) {
-      this.setFormValue(this.teacherStgData.student);
+    // this.teacherStgData = this.storage.retrieve('searchTeacherData');
+    if (this.storageData && this.storageData.student) {
+      this.setFormValue(this.storageData.student);
     } else {
       this.idParam = this.route.snapshot.params.id;
       if ( this.idParam ) {
@@ -91,8 +102,16 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   }
 
   searchTeacherDialog() {
-      const searchTeacherData = { student: this.studentForm.getRawValue()}
-      this.storage.store('searchTeacherData', searchTeacherData);
+      const searchTeacherData: IData = {
+        student: this.studentForm.getRawValue(),
+        companyTutorViewData: '',
+        companyViewData: '',
+        internship: null,
+        mentorViewData: '',
+        studentViewData: '',
+        urlToNavigate: '/students/create-or-update'
+      }
+      this.storage.store('DATA', searchTeacherData);
       this.router.navigate(['/search', 4]);
   }
 
@@ -134,14 +153,15 @@ export class StudentCreateOrUpdateComponent implements OnInit {
   }
 
   setFormValue(student: IStudent): void {
-    this.studentForm.setValue({
+    this.tutorViewData.setValue(this.storageData.mentorViewData);
+    this.studentForm.patchValue({
       names: [student.names],
       surnames: [student.surnames],
       email: [student.email],
       dni: [student.dni],
       cuil: [student.cuil],
-      career: [student.careerId],
-      mentor: [student.mentorId],
+      career: [student.careerId || student.career.id],
+      mentor: [student.mentorId || student.mentor.id],
       address: this.fb.group({
         streetAddress: [student.address.streetAddress],
         state: [student.address.state],

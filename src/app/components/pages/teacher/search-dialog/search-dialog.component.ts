@@ -13,9 +13,11 @@ import { SessionStorageService } from 'ngx-webstorage';
 
 export interface IData {
   internship: IInternship;
+  student: IStudent;
   studentViewData: string;
   companyTutorViewData: string;
   companyViewData: string;
+  mentorViewData: string;
   urlToNavigate: string;
 }
 
@@ -28,7 +30,7 @@ export class SearchDialogComponent implements OnInit {
   persons: any[];
   title: string;
   paramId: number;
-  storageData: any;
+  storageData: IData;
   constructor (
     private teacherService: TeacherService,
     private tutorService: CompanyTutorService,
@@ -45,7 +47,7 @@ export class SearchDialogComponent implements OnInit {
     if ( this.paramId === 1) {
       this.title = 'Estudiantes';
     } else if (this.paramId === 4) {
-      this.title = 'Companias';
+      this.title = 'Tutores';
     } else {
       this.title = 'Tutores';
     }
@@ -56,6 +58,7 @@ export class SearchDialogComponent implements OnInit {
     if ( this.paramId === 1 ) {
       this.searchStudents(filter);
     } else if ( this.paramId === 4 ) {
+      console.log('se buscan techears');
       this.searchTeachers(filter);
     } else {
       this.searchTutors(filter);
@@ -66,14 +69,15 @@ export class SearchDialogComponent implements OnInit {
     if ( this.paramId === 1 ) {
       this.storageData.internship.studentId = person.id;
       this.storageData.studentViewData = `${person.name} ${person.surname}`;
-    } else if ( this.paramId === 4 ) {
-      this.storageData.student.mentor.id = person.id;
-      this.storageData.mentorViewData = `${person.name} ${person.surname}`;
+    } else if ( this.paramId == 4 ) {
+      console.log(this.storageData);
+      this.storageData.student.mentorId = person.id;
+      this.storageData.mentorViewData = `${person.names} ${person.surnames}`;
     } else {
       this.storageData.internship.companyTutorId = person.id;
       this.storageData.companyTutorViewData = `${person.name} ${person.surname}`;
     }
-    this.storage.store('DATA', person);
+    this.storage.store('DATA', this.storageData);
     this.router.navigate([this.storageData.urlToNavigate]);
   }
 

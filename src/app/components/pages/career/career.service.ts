@@ -1,56 +1,50 @@
 import { Injectable } from '@angular/core';
-import { DataService } from 'src/app/DataService';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 import { ICareer } from 'src/app/intefaces/ICareer';
 import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class CareerService extends DataService {
+export class CareerService {
 
-  constructor(public http: HttpClient) {
-    super();
-  }
+  constructor(public http: HttpClient) {}
 
   getCareers(): Observable<ICareer[]> {
-    return this.http.get(this._baseUrl + '/career').pipe(
+    return this.http.get(environment.url + '/career').pipe(
       map((res: ICareer[]) => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 
   getCareerById(id: any): Observable<ICareer> {
-    return this.http.get(this._baseUrl + '/career/' + id).pipe(
-      map(res => {
+    return this.http.get(environment.url + '/career/' + id).pipe(
+      map((res: ICareer) => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 
   createOrUpdCareer(career: ICareer): Observable<boolean> {
-    const headers: HttpHeaders = new HttpHeaders({
-      'content-type': 'application/json',
-      'Authorization': 'Token'
-    });
     const result = JSON.stringify(career);
-    return this.http.post(this._baseUrl + '/career', result, { headers: headers }).pipe(
-      map(res => {
+    return this.http.post(environment.url + '/career', result).pipe(
+      map((res: boolean) => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 
   delete(id: number): Observable<boolean> {
-    return this.http.delete(this._baseUrl + '/career/' + id).pipe(
-      map(res => {
+    return this.http.delete(environment.url + '/career/' + id).pipe(
+      map((res: boolean) => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 
   GetStudentsForCareerReport() {
-    return this.http.get(this._baseUrl + '/career/CareerReport').pipe(
+    return this.http.get(environment.url + '/career/CareerReport').pipe(
       map(res => {
         return res;
-      }), catchError(this.handleError), );
+      }));
   }
 }

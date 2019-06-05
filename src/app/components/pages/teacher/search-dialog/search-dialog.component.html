@@ -23,15 +23,15 @@
         <!-- <p class="grid-title"="6rem">Precio</p>
         <p class="grid-title"="16rem">Prox. Fecha Venc</p> -->
       </div>
-      <div class="grid-content">
-        <!--*ngFor="let item of items" -->
+      <div class="grid-content" *ngFor="let person of persons">
+        <!-- -->
         <div class="grid-item-container">
-          <p class="grid-item">2222</p>
-          <p class="grid-item">Corvalan Gabriel Gonzalo</p>
-          <p class="grid-item">40475304</p>
-          <p class="grid-item">20404753046</p>
+          <p class="grid-item">{{person.id}}</p>
+          <p class="grid-item">{{person.names}} {{person.surnames}}</p>
+          <p class="grid-item">{{person.dni}}</p>
+          <p class="grid-item">{{person.cuil}}</p>
           <div class="grid-item">
-            <button mat-mini-fab color="accent">
+            <button (click)="onSelectButton(person)"  mat-mini-fab color="accent">
               <mat-icon>note_add</mat-icon>
             </button>
           </div>
